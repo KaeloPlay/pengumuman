@@ -96,3 +96,16 @@ body {
 .done::before {
     content: "✔ ";
 }
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-3px);
+}
+
+.show {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.7s ease;
+    transform: translateY(0px);
+}

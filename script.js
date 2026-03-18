@@ -62,6 +62,8 @@ function renderData() {
     });
 
     noteCard.textContent = note;
+
+    showAll();
 }
 
 function addWhenClicked() {
@@ -72,6 +74,21 @@ function addWhenClicked() {
             pr.classList.toggle('done');
         });
     });
-}
-        
+};
+
+function showAll() {
+    const headerEl = document.querySelector('.header');
+    const cardEls = document.querySelectorAll('.card')
+
+    headerEl.classList.remove('hidden')
+    headerEl.classList.add('show');
+
+    cardEls.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.remove('hidden');
+            card.classList.add('show');
+        }, index * 100);
+    });
+};
+
 getData();
