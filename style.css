@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2vh 20px;
+    background-color: #f5f7fb;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    padding: 16px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.card ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.card li {
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.card li:hover {
+    background-color: #f1f5f9;
+}
+
+.mapel h3 { color: #3B82F6; }
+.pr h3 { color: #F59E0B; }
+.piket h3 { color: #10B981; }
+.note h3 { color: #6B7280; }
+
+.two-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.two-row .card {
+    width: 50%;
+}
+
+.two-row .pr li {
+    cursor: pointer;
+    pointer-events: all;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.two-row .pr li:hover {
+    color: #265579;
+    background-color: #ffffff;
+    text-decoration: underline;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #10B981;
+    opacity: 0.7;
+}
+
+.done::before {
+    content: "✔ ";
+}
