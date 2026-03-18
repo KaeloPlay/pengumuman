@@ -5,8 +5,14 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 2vh 20px;
+    font-size: clamp(14px, 2.5vw, 18px);
     background-color: #f5f7fb;
     font-family: 'Poppins', sans-serif;
+    user-select: none;
+}
+
+h1 {
+  font-size: clamp(20px, 6vw, 32px);
 }
 
 .header {
@@ -72,7 +78,6 @@ body {
 .two-row .pr li {
     cursor: pointer;
     pointer-events: all;
-    text-decoration: none;
     transition: all 0.2s ease;
 }
 
