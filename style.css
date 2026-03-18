@@ -15,10 +15,6 @@ body {
     user-select: none;
 }
 
-h1 {
-  font-size: clamp(20px, 6vw, 32px);
-}
-
 .header {
     display: flex;
     flex-direction: row;
@@ -46,7 +42,7 @@ h1 {
 
 .card h3 {
     margin-top: 0;
-    font-size: 18px;
+    font-size: clamp(20px, 5vw, 20px);
     margin-bottom: 12px;
 }
 
