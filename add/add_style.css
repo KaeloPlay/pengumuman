@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2vh 20px;
+    font-size: clamp(14px, 2.5vw, 18px);
+    background-color: #f5f7fb;
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    padding: 16px;
+    width: 100vw;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.card > p {
+    font-weight: bold;
+}
+
+textarea {
+    background-color: #f5f7fb;
+    padding: 1%;
+    margin-bottom: 10px;
+    width: 97%;
+    font-family: Monospace, sans-serif;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: #464646;
+}
+
+textarea:focus, #pr-mapel-drop:focus {
+    outline-style: dashed;
+    outline-color: #ccc;
+}
+
+#mapelInput, #piketInput {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.pr-container {
+    display: flex;
+    flex-direction: column;
+    color: #464646
+}
+
+.pr-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 2%;
+    width: 95%;
+    font-family: Monospace, sans-serif;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.pr-items p {
+    background-color: #ffffff;
+    padding: 6px;
+    margin: 0;
+}
+
+.pr-details-input {
+    margin: auto;
+}
+
+#add-pr {
+    font-family: Monospace, sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#add-pr:hover {
+    background-color: #f5f7fb;
+    transition: all 0.3s ease;
+}
+
+#pr-mapel-drop {
+    background-color: #ffffff;
+    padding: 1%;
+    margin-bottom: 10px;
+    width: 97%;
+    font-family: Monospace, sans-serif;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: #464646;
+    cursor: pointer;
+}
+
+#pr-mapel-drop:hover {
+    background-color: #f5f7fb;
+}
+
+#sendInput {
+    font-family: 'Poppins', sans-serif;
+    background-color: #6B7280;
+    padding: 2%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#sendInput:hover {
+    font-weight: 500;
+    border: 2px solid #ccc;
+}
+
+.disabled {
+    display: none;
+}

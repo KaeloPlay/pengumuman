@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="add_script.js" defer></script>
+        <link href="add_style.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <title>Pengumuman VIIC</title>
+    </head>
+    <body>
+        <div class="card">
+            <p style="color: #3B82F6;">🗓️ Mapel Besok</p>
+            <textarea id="mapelInput" placeholder="(Otomatis coy)"></textarea>
+            <p style="color: #F59E0B;">📌 PR Besok</p>
+            <button type="button" id="add-pr">+</button>
+            <select class="disabled" id="pr-mapel-drop">
+                <option disabled selected>Pilih Mapel</option>
+                <option value="Bahasa Indonesia">B. Indonesia</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
+                <option value="Prakarya">Prakarya</option>
+                <option value="IPA Biologi">IPA Biologi</option>
+                <option value="IPA Fisika">IPA Fisika</option>
+                <option value="IPS">IPS</option>
+                <option value="Informatika">Informatika</option>
+                <option value="PAI">PAI</option>
+                <option value="PJOK">PJOK</option>
+            </select>
+
+            <ul class="pr-container"></ul>
+
+            <template id="pr-items-template">
+                <li>
+                    <div class="pr-items">
+                        <p class="pr-items-mapel">Matematika:</p>
+                        <textarea class="pr-details-input" placeholder="Penjelasan lebih lengkap (misal: halaman, keterangan, dll)."></textarea>
+                    </div>
+                </li>
+            </template>
+            <p style="color: #10B981;">🧹 Piket Besok</p>
+            <textarea id="piketInput" placeholder="(Otomatis juga coyy)"></textarea>
+            <p style="color: #6B7280;">📝 Tambahan</p>
+            <textarea id="tambahanInput" placeholder="Isi tambahan jika ada*"></textarea>
+            <button type="button" id="sendInput">Done ga bang? Done lah masa engga</button>
+        </div>
+    </body>
+</html>
