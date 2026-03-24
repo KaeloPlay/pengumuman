@@ -104,7 +104,7 @@ let note = [];
 
 async function getData() {
     try {
-        const res = await fetch('/api/pengumuman');
+        const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman');
         data = await res.json();
         console.log('Data fetched:', data);
 

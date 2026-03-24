@@ -59,7 +59,7 @@ sendInput.addEventListener('click', () => {
 
 async function postData(pr, tambahan) {
     try {
-        const res = await fetch('/api/pengumuman', {
+        const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
