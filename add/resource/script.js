@@ -55,7 +55,6 @@ sendInput.addEventListener('click', () => {
     if (tambahan === '') tambahan = 'Tidak ada informasi tambahan untuk esok hari.';
     
     postData(pr, tambahan);
-    location.reload();
 });
 
 async function postData(pr, tambahan) {
@@ -71,10 +70,11 @@ async function postData(pr, tambahan) {
                 key: 'viic'
             })
         });
-        
-        alert('Makasii sekle kecayangan kelas🥰');
 
+        alert('Makasii sekle kecayangan kelas🥰');
+        location.reload();
     } catch (err) {
-        console.error('Failed to post:', err)
+        console.error('Failed to post:', err);
+        alert('Gagal aish, koling koling kaelo:', err);
     }
 };
