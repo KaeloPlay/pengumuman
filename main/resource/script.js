@@ -146,7 +146,7 @@ function renderData() {
         mapelCard.appendChild(li);
     });
 
-    if (pr.length !== 0) {
+    if (pr[0] !== "") {
         pr.forEach(prItem => {
             const li = document.createElement('li');
             li.textContent = prItem;
