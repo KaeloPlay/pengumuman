@@ -49,7 +49,6 @@ sendInput.addEventListener('click', () => {
     });
 
     let pr = allPR.join(', ');
-    if (pr === '') pr = 'Tidak ada PR untuk esok hari.';
 
     let tambahan = document.querySelector('#tambahanInput').value;
     if (tambahan === '') tambahan = 'Tidak ada informasi tambahan untuk esok hari.';
