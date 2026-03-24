@@ -61,13 +61,15 @@ sendInput.addEventListener('click', () => {
 
 async function postData(pr, tambahan) {
     try {
-        const res = await fetch('https://api-pengumuman-production.up.railway.app/api/pengumuman', {
+        const res = await fetch('/api/pengumuman', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                pr: pr, note: tambahan
+                pr: pr,
+                note: tambahan,
+                key: 'viic'
             })
         });
     } catch (err) {
