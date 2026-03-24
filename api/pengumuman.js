@@ -5,7 +5,7 @@ const supabase = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-console.log("KEY TYPE:", process.env.SUPABASE_SERVICE_ROLE?.slice(0, 10));
+console.log("KEY TYPE:", process.env.SUPABASE_SERVICE_ROLE_KEY?.slice(0, 10));
 
 export default async function handler(req, res) {
     
