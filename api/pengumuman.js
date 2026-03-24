@@ -45,7 +45,11 @@ export default async function handler(req, res) {
 
         const { error } = await supabase
         .from('pengumuman')
-        .update({ pr, note })
+        .update({
+            pr,
+            note,
+            uuid: crypto.randomUUID()
+        })
         .eq('id', 1);
 
         return res.json({ success: !error, error });
