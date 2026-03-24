@@ -72,7 +72,7 @@ async function postData(pr, tambahan) {
         });
 
         alert('Makasii sekle kecayangan kelas🥰');
-        location.reload();
+        // location.reload();
     } catch (err) {
         console.error('Failed to post:', err);
         alert('Gagal aish, koling koling kaelo:', err);
