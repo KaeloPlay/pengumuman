@@ -146,13 +146,11 @@ function renderData() {
         mapelCard.appendChild(li);
     });
 
-    if (pr[0] !== "") {
-        pr.forEach(prItem => {
-            const li = document.createElement('li');
-            li.textContent = prItem;
-            prCard.appendChild(li);
-        })
-    };
+    pr.forEach(prItem => {
+        const li = document.createElement('li');
+        li.textContent = prItem;
+        prCard.appendChild(li);
+    })
 
     piket.forEach(piketItem => {
         const li = document.createElement('li');
