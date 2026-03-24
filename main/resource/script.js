@@ -101,6 +101,7 @@ let mapel = [];
 let pr = [];
 let piket = [];
 let note = [];
+let checkedPR = {};
 
 async function getData() {
     try {
@@ -119,6 +120,14 @@ async function getData() {
         console.log('PR:', pr);
         console.log('Piket:', piket);
         console.log('Note:', note);
+
+        const lastUUID = JSON.parse(localStorage.getItem('current_uuid')) || 0;
+
+        if (data.uuid === lastUUID) {
+            checkedPR = JSON.parse(localStorage.getItem('checkedPR')) || {};
+        } else {
+            checkedPR = {};
+        }
 
         renderData();
         addWhenClicked();
@@ -146,11 +155,18 @@ function renderData() {
         mapelCard.appendChild(li);
     });
 
-    pr.forEach(prItem => {
+    pr.forEach((prItem, index) => {
         const li = document.createElement('li');
         li.textContent = prItem;
+
+        li.dataset.index = index;
+
+        if (checkedPR[index]) {
+            li.classList.add('done');
+        }
+
         prCard.appendChild(li);
-    })
+    });
 
     piket.forEach(piketItem => {
         const li = document.createElement('li');
@@ -169,6 +185,11 @@ function addWhenClicked() {
     prItems.forEach(pr => {
         pr.addEventListener('click', () => {
             pr.classList.toggle('done');
+
+            const index = pr.dataset.index;
+            checkedPR[index] = pr.classList.contains('done');
+            localStorage.setItem('checkedPR', JSON.stringify(checkedPR));
+            localStorage.setItem('current_uuid', JSON.stringify(data.uuid));
         });
     });
 };
@@ -176,9 +197,13 @@ function addWhenClicked() {
 function showAll() {
     const headerEl = document.querySelector('.header');
     const cardEls = document.querySelectorAll('.card')
+    const subinfoEl = document.querySelector('.subinfo');
 
     headerEl.classList.remove('hidden')
     headerEl.classList.add('show');
+
+    subinfoEl.classList.remove('hidden')
+    subinfoEl.classList.add('show');
 
     cardEls.forEach((card, index) => {
         setTimeout(() => {
