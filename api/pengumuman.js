@@ -31,8 +31,8 @@ export default async function handler(req, res) {
         }
 
         return res.json({
-            pengumuman,
-            jadwal
+            ...pengumuman,
+            ...jadwal
         });
     }
 

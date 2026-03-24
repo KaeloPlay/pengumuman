@@ -97,10 +97,10 @@ getData(); */
 
 let data = {};
 let tanggal;
-let mapel = [];
 let pr = [];
+let note = [];
+let mapel = [];
 let piket = [];
-let note;
 
 async function getData() {
     try {
@@ -109,10 +109,10 @@ async function getData() {
         console.log('Data fetched:', data);
 
         tanggal = data.tanggal;
-        mapel = data.mapel.split(',').map(item => item.trim());
         pr = data.pr.split(',').map(item => item.trim());
-        piket = data.piket.split(',').map(item => item.trim());
         note = data.note;
+        mapel = data.mapel.split(',').map(item => item.trim());
+        piket = data.piket.split(',').map(item => item.trim());
 
         console.log('Tanggal:', tanggal);
         console.log('Mapel:', mapel);
