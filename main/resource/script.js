@@ -110,10 +110,6 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-window.addEventListener('beforeunload', () => {
-    hideAll();
-});
-
 async function getData() {
     try {
         const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman');
