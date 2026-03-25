@@ -117,9 +117,9 @@ async function getData() {
         console.log('Data fetched:', data);
 
         tanggal = data.tanggal_besok;
-        mapel = data.mapel.split('$').map(item => item.trim());
+        mapel = data.mapel.split(',').map(item => item.trim());
         pr = data.pr.split('$').map(item => item.trim());
-        piket = data.piket.split('$').map(item => item.trim());
+        piket = data.piket.split(',').map(item => item.trim());
         note = data.note;
 
         console.log('Tanggal:', tanggal);
