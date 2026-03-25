@@ -30,9 +30,30 @@ export default async function handler(req, res) {
             return res.json({ error: err1 || err2 });
         }
 
+        const now = new Date();
+        const hour = now.toLocaleString('id-ID', {
+            timeZone: 'Asia/Jakarta',
+            hour: '2-digit',
+            hour12: false
+        });
+
+        let tanggal_besok = {};
+        if (hour >= 7) {
+            now.setDate(now.getDate() + 1);
+
+            tanggal_besok = { tanggal_besok: `Besok, ${now.toLocaleDateString('sv-SE', {
+            timeZone: 'Asia/Jakarta'
+            })}` };
+        } else if (hour >= 0 && hour < 7) {
+            tanggal_besok = { tanggal_besok: `Hari ini, ${now.toLocaleDateString('sv-SE', {
+            timeZone: 'Asia/Jakarta'
+            })}` };
+        }
+
         return res.json({
             ...pengumuman,
-            ...jadwal
+            ...jadwal,
+            ...tanggal_besok
         });
     }
 
