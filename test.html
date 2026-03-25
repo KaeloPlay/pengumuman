@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <style>
+            body {
+                background-color: #f5f7fb;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                overflow-x: hidden;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .container {
+                position: absolute;
+                z-index: 2;
+            }
+
+            .wrapper {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                height: 100%;
+            }
+
+            .side {
+                position: fixed;
+                top: 0;                
+                opacity: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                transition: opacity 0.2s ease;
+            }
+
+            .left {
+                z-index: 0;
+                left: 0;
+                background: lightblue;
+                width: 50%;
+                height: 100vh;
+            }
+
+            .right {
+                z-index: 0;
+                right: 0;
+                background: lightpink;
+                width: 50%;
+                height: 100vh;
+            }
+
+            .card {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                justify-content: center;
+                align-items: center;
+                font-size: clamp(14px, 2.5vw, 18px);
+                background-color: #f5f7fb;
+                user-select: none;
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+                height: 100vh;
+                background: white;
+                touch-action: none;
+                transition: transform 0.3s ease;
+                will-change: transform;
+            }
+
+            .card p {
+                text-align: center;
+                margin: 0px 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        </div>
+        <div class="wrapper">
+            <div class="side left">1</div>
+            <div class="side right">2</div>
+            <div class="card" id="card">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur temporibus perferendis fugiat, labore fugit ratione et amet ab ut eius cum dicta velit. Distinctio, fuga odit aperiam consequuntur quasi commodi?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur temporibus perferendis fugiat, labore fugit ratione et amet ab ut eius cum dicta velit. Distinctio, fuga odit aperiam consequuntur quasi commodi?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur temporibus perferendis fugiat, labore fugit ratione et amet ab ut eius cum dicta velit. Distinctio, fuga odit aperiam consequuntur quasi commodi?</p>
+            </div>
+        </div>
+        <script defer>
+            const card = document.querySelector("#card");
+            const left = document.querySelector('.left');
+            const right = document.querySelector('.right');
+
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+
+            card.addEventListener("pointerdown", (e) => {
+                isDragging = true;
+                startX = e.clientX;
+                card.style.transition = "none";
+            });
+
+            window.addEventListener("pointermove", (e) => {
+                if (!isDragging) return;
+
+                currentX = (e.clientX - startX) * 0.6;
+
+                // limit biar ga terlalu jauh
+                if (currentX > 100) currentX = 100;
+                if (currentX < -100) currentX = -100;
+                
+                card.style.transform = `translateX(${currentX}px)`;
+                left.style.opacity = currentX > 0 ? currentX / 100 : 0;
+                right.style.opacity = currentX < 0 ? -currentX / 100 : 0;
+            });
+
+            window.addEventListener("pointerup", () => {
+                if (!isDragging) return;
+                isDragging = false;
+
+                card.style.transition = "transform 0.3s ease";
+                card.style.transform = `translateX(0px)`;
+
+                document.querySelector('.left').style.opacity = 0;
+                document.querySelector('.right').style.opacity = 0;
+            });
+        </script>
+    </body>
+</html>

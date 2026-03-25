@@ -48,7 +48,7 @@ sendInput.addEventListener('click', () => {
         return `${mapel} ${value}`;
     });
 
-    let pr = allPR.join(', ');
+    let pr = allPR.join('$ ');
     if (pr === '') pr = 'Tidak ada PR untuk esok hari.';
 
     let tambahan = document.querySelector('#tambahanInput').value;
