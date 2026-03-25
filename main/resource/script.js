@@ -105,6 +105,7 @@ let checkedPR = {};
 
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
+        hideAll();
         getData();
     }
 });
@@ -208,15 +209,37 @@ function showAll() {
     headerEl.classList.remove('hidden')
     headerEl.classList.add('show');
 
-    subinfoEl.classList.remove('hidden')
-    subinfoEl.classList.add('show');
-
     cardEls.forEach((card, index) => {
         setTimeout(() => {
             card.classList.remove('hidden');
             card.classList.add('show');
         }, index * 100);
     });
+
+    subinfoEl.classList.remove('hidden')
+    subinfoEl.classList.add('show');
+
+};
+
+function hideAll() {
+    const headerEl = document.querySelector('.header');
+    const cardEls = document.querySelectorAll('.card')
+    const subinfoEl = document.querySelector('.subinfo');
+    
+    
+    headerEl.classList.remove('show')
+    headerEl.classList.add('hidden');
+    
+    cardEls.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.remove('show');
+            card.classList.add('hidden');
+        }, index * 100);
+    });
+
+    subinfoEl.classList.remove('show')
+    subinfoEl.classList.add('hidden');
+
 };
 
 getData();
