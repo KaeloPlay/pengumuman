@@ -103,6 +103,12 @@ let piket = [];
 let note = [];
 let checkedPR = {};
 
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        getData();
+    }
+});
+
 async function getData() {
     try {
         const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman');
