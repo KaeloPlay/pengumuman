@@ -1,100 +1,3 @@
-/*
-let data = [];
-let tanggal;
-let mapel = [];
-let pr = [];
-let piket = [];
-let note;
-
-async function getData() {
-    try {
-        const res = await fetch('https://api-pengumuman-production.up.railway.app/api/pengumuman');
-        data = await res.json();
-        console.log('Data fetched:', data);
-
-        tanggal = data.tanggal;
-        mapel = data.mapel.split('$').map(item => item.trim());
-        pr = data.pr.split('$').map(item => item.trim());
-        piket = data.piket.split('$').map(item => item.trim());
-        note = data.note;
-
-        console.log('Tanggal:', tanggal);
-        console.log('Mapel:', mapel);
-        console.log('PR:', pr);
-        console.log('Piket:', piket);
-        console.log('Note:', note);
-
-        renderData();
-        addWhenClicked();
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
-
-function renderData() {
-    const tanggalEl = document.querySelector('#date');
-    const mapelCard = document.querySelector('.mapel ul');
-    const prCard = document.querySelector('.pr ul');
-    const piketCard = document.querySelector('.piket ul');
-    const noteCard = document.querySelector('.note p');
-
-    mapelCard.innerHTML = '';
-    prCard.innerHTML = '';
-    piketCard.innerHTML = '';
-
-    tanggalEl.textContent = (`( ${tanggal} )`);
-
-    mapel.forEach(mapelItem => {
-        const li = document.createElement('li');
-        li.textContent = mapelItem;
-        mapelCard.appendChild(li);
-    });
-
-    pr.forEach(prItem => {
-        const li = document.createElement('li');
-        li.textContent = prItem;
-        prCard.appendChild(li);
-    });
-
-    piket.forEach(piketItem => {
-        const li = document.createElement('li');
-        li.textContent = piketItem;
-        piketCard.appendChild(li);
-    });
-
-    noteCard.textContent = note;
-
-    showAll();
-}
-
-function addWhenClicked() {
-    const prItems = document.querySelectorAll('.pr li');
-
-    prItems.forEach(pr => {
-        pr.addEventListener('click', () => {
-            pr.classList.toggle('done');
-        });
-    });
-};
-
-function showAll() {
-    const headerEl = document.querySelector('.header');
-    const cardEls = document.querySelectorAll('.card')
-
-    headerEl.classList.remove('hidden')
-    headerEl.classList.add('show');
-
-    cardEls.forEach((card, index) => {
-        setTimeout(() => {
-            card.classList.remove('hidden');
-            card.classList.add('show');
-        }, index * 100);
-    });
-};
-
-getData(); */
-
-
 let data = {};
 let tanggal;
 let mapel = [];
@@ -243,3 +146,54 @@ function hideAll() {
 };
 
 getData();
+
+const container = document.querySelector('#container');
+const left = document.querySelector('.left');
+const right = document.querySelector('.right');
+
+let startX = 0;
+let startY = 0;
+let currentX = 0;
+let isDragging = false;
+let isHorizontal = null;
+
+container.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    isHorizontal = null;
+    container.style.transition = 'none';
+});
+
+window.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+
+    currentX = (e.clientX - startX) * 0.6;
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if (isHorizontal === null) {
+        isHorizontal = Math.abs(dx) > Math.abs(dy);
+    }
+
+    if (!isHorizontal) return;
+
+    if (currentX > 100) currentX = 100;
+    if (currentX < -100) currentX = -100;
+    
+    container.style.transform = `translateX(${currentX}px)`;
+    left.style.opacity = currentX > 0 ? currentX / 100 : 0;
+    right.style.opacity = currentX < 0 ? -currentX / 100 : 0;
+});
+
+window.addEventListener('pointerup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    container.style.transition = 'transform 0.3s ease';
+    container.style.transform = `translateX(0px)`;
+
+    left.style.opacity = 0;
+    right.style.opacity = 0;
+});
