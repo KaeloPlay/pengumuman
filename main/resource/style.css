@@ -38,7 +38,7 @@ body {
 }
 
 .left {
-    left: 0;
+    left: 10px;
 }
 
 .left p {
@@ -48,7 +48,7 @@ body {
 }
 
 .right {
-    right: 0;
+    right: 10px;
 }
 
 .right p {
@@ -59,7 +59,7 @@ body {
 
 .side p {
     white-space: nowrap;
-    font-size: clamp(12px, 2.5vw, 20px);
+    font-size: clamp(12px, 2.5vw, 16px);
     opacity: 0.8;
     letter-spacing: 0.5px;
 }
