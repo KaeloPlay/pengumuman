@@ -151,7 +151,9 @@ getData();
 
 const container = document.querySelector('#container');
 const left = document.querySelector('.left');
+const leftP = left.querySelector('p');
 const right = document.querySelector('.right');
+const rightP = right.querySelector('p');
 
 let startX = 0;
 let startY = 0;
@@ -159,6 +161,7 @@ let currentX = 0;
 let isDragging = false;
 let vibrate = false;
 let isHorizontal = null;
+let openLeft = false;
 
 container.addEventListener('pointerdown', (e) => {
     isDragging = true;
@@ -172,7 +175,7 @@ container.addEventListener('pointerdown', (e) => {
 window.addEventListener('pointermove', (e) => {
     if (!isDragging) return;
 
-    currentX = (e.clientX - startX) * 0.6;
+    currentX = (e.clientX - startX) * 0.5;
 
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
@@ -184,15 +187,22 @@ window.addEventListener('pointermove', (e) => {
     if (!isHorizontal) return;
 
     if (currentX > 100) {
-        if (vibrate === true) {
+        if (vibrate) {
             navigator.vibrate(20);
             vibrate = false;
         }
         currentX = 100;
+        if (!openLeft) {
+            setTimeout(() => {
+                if (isDragging) openLeft = true;
+                navigator.vibrate([20, 20, 20])
+                console.log('lock')
+            }, 2000);
+        }
     }
 
     if (currentX < -100) {
-        if (vibrate === true) {
+        if (vibrate) {
             navigator.vibrate(20);
             vibrate = false;
         }
@@ -205,6 +215,18 @@ window.addEventListener('pointermove', (e) => {
 });
 
 window.addEventListener('pointerup', () => {
+    if (currentX === 100) {
+        if (openLeft) {
+            isDragging = false;
+            container.style.transition = 'transform 0.75s ease';
+            container.style.transform = `translateX(100vw)`;
+            
+            leftP.style.opacity = 0;
+        }
+    } else {
+        openLeft = false;
+    }
+    
     if (!isDragging) return;
     isDragging = false;
 

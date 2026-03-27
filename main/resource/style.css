@@ -43,8 +43,6 @@ body {
 
 .left p {
     transform: rotate(-90deg);
-    transform-origin: center;
-    text-align: left;
 }
 
 .right {
@@ -53,15 +51,16 @@ body {
 
 .right p {
     transform: rotate(90deg);
-    transform-origin: center;
-    text-align: right;
 }
 
 .side p {
     white-space: nowrap;
     font-size: clamp(12px, 2.5vw, 16px);
     opacity: 0.8;
+    text-align: center;
     letter-spacing: 0.5px;
+    transform-origin: center;
+    transition: opacity 0.8s ease;
 }
 
 .container {
