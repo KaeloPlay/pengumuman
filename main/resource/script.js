@@ -6,12 +6,12 @@ let piket = [];
 let note = [];
 let checkedPR = {};
 
-document.addEventListener('visibilitychange', () => {
+/* document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
         hideAll();
         getData();
     }
-});
+}); */
 
 async function getData() {
     try {
@@ -150,10 +150,13 @@ getData();
 
 
 const container = document.querySelector('#container');
+const side = document.querySelector('.side');
 const left = document.querySelector('.left');
 const leftP = left.querySelector('p');
 const right = document.querySelector('.right');
 const rightP = right.querySelector('p');
+
+const memoryBgm = document.querySelector('#memory-bgm')
 
 let startX = 0;
 let startY = 0;
@@ -163,8 +166,11 @@ let vibrate = false;
 let isHorizontal = null;
 let openLeft = false;
 let holdTimeout = null;
+let end = false;
 
 container.addEventListener('pointerdown', (e) => {
+    if (end) return;
+
     isDragging = true;
     vibrate = true
     startX = e.clientX;
@@ -174,7 +180,7 @@ container.addEventListener('pointerdown', (e) => {
 });
 
 window.addEventListener('pointermove', (e) => {
-    if (!isDragging) return;
+    if (end || !isDragging) return;
 
     currentX = (e.clientX - startX) * 0.5;
 
@@ -221,6 +227,8 @@ window.addEventListener('pointermove', (e) => {
 });
 
 window.addEventListener('pointerup', () => {
+    if (end) return;
+    
     if (holdTimeout) {
         clearTimeout(holdTimeout);
         holdTimeout = null;
@@ -228,11 +236,50 @@ window.addEventListener('pointerup', () => {
 
     if (currentX === 100) {
         if (openLeft) {
+            end = true;
             isDragging = false;
             container.style.transition = 'transform 0.75s ease';
             container.style.transform = `translateX(100vw)`;
             
+            setTimeout(() => {
+                container.style.display = 'none'; 
+            }, 750);
+
             leftP.style.opacity = 0;
+            setTimeout(() => {
+                left.style.transition = 'box-shadow 5s ease';
+                left.style.width = '100%';
+                left.style.boxShadow = 'inset 0px 0px 100vw 10px rgba(0, 0, 0, 1)';
+
+                setTimeout(() => {
+                    memoryBgm.play();
+                    left.style.transition = 'box-shadow 4s ease';
+                    left.style.boxShadow = 'inset 0px 0px 20vw 10px rgba(0, 0, 0, 0.2)';
+    
+                    side.style.flexDirection = 'column';
+                    side.style.zIndex = '2';
+                    side.style.justifyContent = 'none';
+    
+                    document.querySelector('.nst-overlay').classList.remove('hidden');
+                    document.querySelector('.nst-overlay').classList.add('show');
+                    
+                    setTimeout(() => {
+                        const memoriesEl = document.querySelector('.memories');
+
+                        const img = memoriesEl.querySelectorAll('img');
+                        const vid = memoriesEl.querySelectorAll('video');
+
+                        const medias = [...img, ...vid]
+                        console.log(medias);
+
+                        medias.forEach(media => {
+                            media.style.animation = 'fadeMemory 3s ease forwards';
+                        })
+                    }, 1800)
+                }, 2500)
+            }, 750)
+
+
         }
     } else {
         openLeft = false;
