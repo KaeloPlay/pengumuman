@@ -199,11 +199,11 @@ window.addEventListener('pointermove', (e) => {
             holdTimeout = setTimeout(() => {
                 if (isDragging) {
                     openLeft = true 
-                    navigator.vibrate([20, 20, 20])
+                    navigator.vibrate([30, 20, 30])
                     console.log('lock')
                 }
                 holdTimeout = null;
-            }, 2000);
+            }, 1500);
         }
     }
 
@@ -225,7 +225,7 @@ window.addEventListener('pointerup', () => {
         clearTimeout(holdTimeout);
         holdTimeout = null;
     }
-    
+
     if (currentX === 100) {
         if (openLeft) {
             isDragging = false;
