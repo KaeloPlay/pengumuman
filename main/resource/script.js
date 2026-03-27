@@ -147,6 +147,7 @@ function hideAll() {
 
 getData();
 
+
 const container = document.querySelector('#container');
 const left = document.querySelector('.left');
 const right = document.querySelector('.right');
@@ -179,8 +180,15 @@ window.addEventListener('pointermove', (e) => {
 
     if (!isHorizontal) return;
 
-    if (currentX > 100) currentX = 100;
-    if (currentX < -100) currentX = -100;
+    if (currentX > 100) {
+        navigator.vibrate(100);
+        currentX = 100;
+    }
+
+    if (currentX < -100) {
+        navigator.vibrate(100);
+        currentX = -100;
+    }
     
     container.style.transform = `translateX(${currentX}px)`;
     left.style.opacity = currentX > 0 ? currentX / 100 : 0;
