@@ -181,12 +181,12 @@ window.addEventListener('pointermove', (e) => {
     if (!isHorizontal) return;
 
     if (currentX > 100) {
-        navigator.vibrate(100);
+        navigator.vibrate(200);
         currentX = 100;
     }
 
     if (currentX < -100) {
-        navigator.vibrate(100);
+        navigator.vibrate(200);
         currentX = -100;
     }
     
