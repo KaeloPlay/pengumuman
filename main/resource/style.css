@@ -19,6 +19,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+body, .side {
+    overscroll-behavior-y: none;
+}
+
 .wrapper {
     width: 100%;
 }
@@ -233,6 +237,9 @@ body {
         rgba(0, 0, 0, 0.2)
     );
     pointer-events: none;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
 }
 
 .done {
