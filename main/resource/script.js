@@ -94,7 +94,7 @@ function addWhenClicked() {
 
     prItems.forEach(pr => {
         pr.addEventListener('click', () => {
-            navigator.vibrate(100);
+            navigator.vibrate(50);
             pr.classList.toggle('done');
 
             const index = pr.dataset.index;
@@ -185,7 +185,7 @@ window.addEventListener('pointermove', (e) => {
 
     if (currentX > 100) {
         if (vibrate === true) {
-            navigator.vibrate(200);
+            navigator.vibrate(50);
             vibrate = false;
         }
         currentX = 100;
@@ -193,7 +193,7 @@ window.addEventListener('pointermove', (e) => {
 
     if (currentX < -100) {
         if (vibrate === true) {
-            navigator.vibrate(200);
+            navigator.vibrate(50);
             vibrate = false;
         }
         currentX = -100;
