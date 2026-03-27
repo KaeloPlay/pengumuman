@@ -94,6 +94,7 @@ function addWhenClicked() {
 
     prItems.forEach(pr => {
         pr.addEventListener('click', () => {
+            navigator.vibrate(100);
             pr.classList.toggle('done');
 
             const index = pr.dataset.index;
@@ -156,10 +157,12 @@ let startX = 0;
 let startY = 0;
 let currentX = 0;
 let isDragging = false;
+let vibrate = false;
 let isHorizontal = null;
 
 container.addEventListener('pointerdown', (e) => {
     isDragging = true;
+    vibrate = true
     startX = e.clientX;
     startY = e.clientY;
     isHorizontal = null;
@@ -181,12 +184,18 @@ window.addEventListener('pointermove', (e) => {
     if (!isHorizontal) return;
 
     if (currentX > 100) {
-        navigator.vibrate(200);
+        if (vibrate === true) {
+            navigator.vibrate(200);
+            vibrate = false;
+        }
         currentX = 100;
     }
 
     if (currentX < -100) {
-        navigator.vibrate(200);
+        if (vibrate === true) {
+            navigator.vibrate(200);
+            vibrate = false;
+        }
         currentX = -100;
     }
     
