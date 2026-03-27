@@ -162,6 +162,7 @@ let isDragging = false;
 let vibrate = false;
 let isHorizontal = null;
 let openLeft = false;
+let holdTimeout = null;
 
 container.addEventListener('pointerdown', (e) => {
     isDragging = true;
@@ -187,16 +188,21 @@ window.addEventListener('pointermove', (e) => {
     if (!isHorizontal) return;
 
     if (currentX > 100) {
+        currentX = 100;
+
         if (vibrate) {
             navigator.vibrate(20);
             vibrate = false;
         }
-        currentX = 100;
-        if (!openLeft) {
-            setTimeout(() => {
-                if (isDragging) openLeft = true;
-                navigator.vibrate([20, 20, 20])
-                console.log('lock')
+
+        if (!openLeft && !holdTimeout) {
+            holdTimeout = setTimeout(() => {
+                if (isDragging) {
+                    openLeft = true 
+                    navigator.vibrate([20, 20, 20])
+                    console.log('lock')
+                }
+                holdTimeout = null;
             }, 2000);
         }
     }
@@ -215,6 +221,11 @@ window.addEventListener('pointermove', (e) => {
 });
 
 window.addEventListener('pointerup', () => {
+    if (holdTimeout) {
+        clearTimeout(holdTimeout);
+        holdTimeout = null;
+    }
+    
     if (currentX === 100) {
         if (openLeft) {
             isDragging = false;
