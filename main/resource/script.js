@@ -185,7 +185,7 @@ window.addEventListener('pointermove', (e) => {
 
     if (currentX > 100) {
         if (vibrate === true) {
-            navigator.vibrate(40);
+            navigator.vibrate(20);
             vibrate = false;
         }
         currentX = 100;
@@ -193,7 +193,7 @@ window.addEventListener('pointermove', (e) => {
 
     if (currentX < -100) {
         if (vibrate === true) {
-            navigator.vibrate(40);
+            navigator.vibrate(20);
             vibrate = false;
         }
         currentX = -100;
