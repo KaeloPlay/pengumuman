@@ -8,7 +8,7 @@ let checkedPR = {};
 
 document.addEventListener('visibilitychange', () => {
     if (end) return;
-    
+
     if (document.visibilityState === 'visible') {
         hideAll();
         getData();
@@ -250,7 +250,7 @@ window.addEventListener('pointerup', () => {
             leftP.style.opacity = 0;
 
             setTimeout(() => {
-                // memoryBgm.play();
+                memoryBgm.play();
                 left.style.transition = 'box-shadow 4s ease';
                 left.style.boxShadow = 'inset 0px 0px 20vw 10px rgba(0, 0, 0, 0.2)';
                 left.style.width = '100%';
