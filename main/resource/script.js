@@ -6,12 +6,14 @@ let piket = [];
 let note = [];
 let checkedPR = {};
 
-/* document.addEventListener('visibilitychange', () => {
+document.addEventListener('visibilitychange', () => {
+    if (end) return;
+    
     if (document.visibilityState === 'visible') {
         hideAll();
         getData();
     }
-}); */
+});
 
 async function getData() {
     try {
@@ -246,40 +248,40 @@ window.addEventListener('pointerup', () => {
             }, 750);
 
             leftP.style.opacity = 0;
+
             setTimeout(() => {
-                left.style.transition = 'box-shadow 5s ease';
+                // memoryBgm.play();
+                left.style.transition = 'box-shadow 4s ease';
+                left.style.boxShadow = 'inset 0px 0px 20vw 10px rgba(0, 0, 0, 0.2)';
                 left.style.width = '100%';
-                left.style.boxShadow = 'inset 0px 0px 100vw 10px rgba(0, 0, 0, 1)';
+
+                side.style.flexDirection = 'column';
+                side.style.zIndex = '2';
+
+                const overlay = document.querySelector('.nst-overlay');
+                overlay.classList.remove('hidden');
+                overlay.classList.add('show');
 
                 setTimeout(() => {
-                    memoryBgm.play();
-                    left.style.transition = 'box-shadow 4s ease';
-                    left.style.boxShadow = 'inset 0px 0px 20vw 10px rgba(0, 0, 0, 0.2)';
-    
-                    side.style.flexDirection = 'column';
-                    side.style.zIndex = '2';
-                    side.style.justifyContent = 'none';
-    
-                    document.querySelector('.nst-overlay').classList.remove('hidden');
-                    document.querySelector('.nst-overlay').classList.add('show');
-                    
-                    setTimeout(() => {
-                        const memoriesEl = document.querySelector('.memories');
+                    const memoriesEl = document.querySelector('.memories');
+                    const imgs = memoriesEl.querySelectorAll('img');
+                    const vids = memoriesEl.querySelectorAll('video');
+                    const medias = [...imgs, ...vids];
 
-                        const img = memoriesEl.querySelectorAll('img');
-                        const vid = memoriesEl.querySelectorAll('video');
-
-                        const medias = [...img, ...vid]
-                        console.log(medias);
-
-                        medias.forEach(media => {
-                            media.style.animation = 'fadeMemory 3s ease forwards';
-                        })
-                    }, 1800)
-                }, 2500)
-            }, 750)
-
-
+                    medias.forEach(media => {
+                        media.style.animationName = 'fadeMemory';
+                        media.style.animationDuration = '3s';
+                        media.style.animationTimingFunction = 'ease';
+                        media.style.animationFillMode = 'forwards';
+                        
+                        if (media.matches('img:nth-child(1)')) {
+                            media.style.animationDelay = '0.2s';
+                        } else if (media.matches('img:nth-child(2)')) {
+                            media.style.animationDelay = '0.5s';
+                        }
+                    });
+                }, 1800);
+            }, 2500);
         }
     } else {
         openLeft = false;
