@@ -45,6 +45,7 @@ async function getData() {
         addWhenClicked();
     } catch (error) {
         console.error('Error fetching data:', error);
+        alert('Roror error T_T, Error fetching data:', error);
     }
 }
 
