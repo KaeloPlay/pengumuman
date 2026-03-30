@@ -158,7 +158,6 @@ body, .side {
 }
 
 .two-row .card {
-    width: auto;
     min-width: 0;
     flex: 1;
     margin-bottom: 0;
@@ -251,15 +250,20 @@ body, .side {
 .hidden {
     opacity: 0;
     visibility: hidden;
-    transition: all 0.7s ease;
     transform: translateY(-3px);
+    pointer-events: none;
+    transition: all 0.7s ease;
 }
 
 .show {
     opacity: 1;
     visibility: visible;
-    transition: all 0.7s ease;
     transform: translateY(0px);
+    transition: all 0.7s ease;
+}
+
+.pr-empty {
+    display: none !important;
 }
 
 .normal-rds img {

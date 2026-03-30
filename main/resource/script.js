@@ -68,20 +68,16 @@ function renderData() {
         mapelCard.appendChild(li);
     });
 
-    if (pr[0] !== '') {
-        pr.forEach((prItem, index) => {
-            const li = document.createElement('li');
-            li.textContent = prItem;
+    pr.forEach((prItem, index) => {
+        const li = document.createElement('li');
 
-            li.dataset.index = index;
+        li.textContent = prItem;
+        li.dataset.index = index;
 
-            if (checkedPR[index]) {
-                li.classList.add('done');
-            }
-
-            prCard.appendChild(li);
-        })
-    }
+        if (checkedPR[index]) li.classList.add('done');
+        
+        prCard.appendChild(li);
+    })
 
     piket.forEach(piketItem => {
         const li = document.createElement('li');
@@ -119,23 +115,23 @@ function showAll() {
     headerEl.classList.add('show');
 
     cardEls.forEach((card, index) => {
+        
         setTimeout(() => {
-            if (card.id === 'pr-section' && pr[0] !== '') {
-                card.classList.remove('hidden');
-                card.classList.add('show');
-            }
-
-            if (card.id !== 'pr-section') {
-                card.classList.remove('hidden');
-                card.classList.add('show');
-            }
-            
+            card.classList.remove('hidden');
+            card.classList.add('show');
         }, index * 100);
     });
-
+    
+    if (pr[0] === '') {
+        console.log('PR is empty, hiding PR section.');
+        document.querySelector('#pr-section').classList.add('pr-empty');
+        document.querySelector('#pr-section').classList.add('hidden');
+    } else {
+        document.querySelector('#pr-section').classList.remove('pr-empty');
+    }
+       
     subinfoEl.classList.remove('hidden')
     subinfoEl.classList.add('show');
-
 };
 
 function hideAll() {
