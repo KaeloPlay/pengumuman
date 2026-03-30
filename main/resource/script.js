@@ -67,18 +67,20 @@ function renderData() {
         mapelCard.appendChild(li);
     });
 
-    pr.forEach((prItem, index) => {
-        const li = document.createElement('li');
-        li.textContent = prItem;
+    if (pr[0] !== '') {
+        pr.forEach((prItem, index) => {
+            const li = document.createElement('li');
+            li.textContent = prItem;
 
-        li.dataset.index = index;
+            li.dataset.index = index;
 
-        if (checkedPR[index]) {
-            li.classList.add('done');
-        }
+            if (checkedPR[index]) {
+                li.classList.add('done');
+            }
 
-        prCard.appendChild(li);
-    });
+            prCard.appendChild(li);
+        })
+    }
 
     piket.forEach(piketItem => {
         const li = document.createElement('li');
@@ -117,8 +119,16 @@ function showAll() {
 
     cardEls.forEach((card, index) => {
         setTimeout(() => {
-            card.classList.remove('hidden');
-            card.classList.add('show');
+            if (card.id === 'pr-section' && pr[0] !== '') {
+                card.classList.remove('hidden');
+                card.classList.add('show');
+            }
+
+            if (card.id !== 'pr-section') {
+                card.classList.remove('hidden');
+                card.classList.add('show');
+            }
+            
         }, index * 100);
     });
 
