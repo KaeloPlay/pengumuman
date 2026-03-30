@@ -55,6 +55,7 @@ export default async function handler(req, res) {
             ...jadwal,
             ...tanggal_besok
         });
+        console.log('Sent data to user.');
     }
 
     if (req.method === 'POST') {
@@ -74,7 +75,7 @@ export default async function handler(req, res) {
         .eq('id', 1);
 
         return res.json({ success: !error, error });
+        console.log(`Got data from /add, success: ${!error}; ${error}`);
     }
-
     return res.status(405).json({ error: 'Method not allowed' });
 }
