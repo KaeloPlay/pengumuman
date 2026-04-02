@@ -6,34 +6,17 @@
 
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     min-height: 100vh;
-    padding: 2vh 20px;
+    padding: 0 20px 20px 20px;
+    box-sizing: border-box;
     font-size: clamp(14px, 2.5vw, 18px);
-    background-color: #f5f7fb;
+    background-color: #ffffff;
     font-family: 'Poppins', sans-serif;
     user-select: none;
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    padding: 16px;
-    width: 100vw;
-    transition: all 0.2s ease;
-    cursor: default;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-}
-
-.card > p {
+body > p {
     font-weight: bold;
 }
 
@@ -47,9 +30,11 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 8px;
     color: #464646;
+    overflow: hidden;
+    min-height: 40px;
 }
 
-textarea:focus, #pr-mapel-drop:focus {
+textarea:focus, .dropdown:focus {
     outline-style: dashed;
     outline-color: #ccc;
 }
@@ -59,13 +44,13 @@ textarea:focus, #pr-mapel-drop:focus {
     opacity: 0.6;
 }
 
-.pr-container {
+.drop-container {
     display: flex;
     flex-direction: column;
     color: #464646
 }
 
-.pr-items {
+.items {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -80,17 +65,18 @@ textarea:focus, #pr-mapel-drop:focus {
     margin-bottom: 10px;
 }
 
-.pr-items p {
+.items p {
     background-color: #ffffff;
     padding: 6px;
     margin: 0;
 }
 
-.pr-details-input {
+.items-details {
     margin: auto;
+    overflow: auto !important;
 }
 
-#add-pr {
+.add-drop {
     font-family: Monospace, sans-serif;
     font-weight: normal;
     font-size: 20px;
@@ -101,12 +87,12 @@ textarea:focus, #pr-mapel-drop:focus {
     cursor: pointer;
 }
 
-#add-pr:hover {
+.add-drop:hover {
     background-color: #f5f7fb;
     transition: all 0.3s ease;
 }
 
-#pr-mapel-drop {
+.dropdown {
     background-color: #ffffff;
     padding: 1%;
     margin-bottom: 10px;
@@ -119,16 +105,19 @@ textarea:focus, #pr-mapel-drop:focus {
     cursor: pointer;
 }
 
-#pr-mapel-drop:hover {
+.dropdown:hover {
     background-color: #f5f7fb;
 }
 
 #sendInput {
+    margin-top: auto;
+    margin-bottom: 10px;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
     font-family: 'Poppins', sans-serif;
     background-color: #6B7280;
-    padding: 2%;
-    margin-top: 10px;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     color: #ffffff;
@@ -142,4 +131,20 @@ textarea:focus, #pr-mapel-drop:focus {
 
 .disabled {
     display: none;
+    pointer-events: none;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-3px);
+    pointer-events: none;
+    transition: all 0.7s ease;
+}
+
+.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+    transition: all 0.7s ease;
 }

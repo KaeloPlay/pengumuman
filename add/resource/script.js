@@ -54,6 +54,27 @@ sendInput.addEventListener('click', () => {
     postData(pr, tambahan);
 });
 
+async function getData() {
+    try {
+        const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman');
+        const { mapel, piket } = await res.json();
+
+        console.log('Data fetched:', { mapel, piket });
+
+        const mapelInput = document.querySelector('#mapelInput');
+        const piketInput = document.querySelector('#piketInput');
+
+        mapelInput.value = mapel;
+        piketInput.value = piket;
+
+        document.body.classList.add('show');
+        document.body.classList.remove('hidden');
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        alert('Ada error nih, tapi gapapa mungkin bisa lanjut:', error);
+    }
+}
+
 async function postData(pr, tambahan) {
     try {
         const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman', {
@@ -75,3 +96,5 @@ async function postData(pr, tambahan) {
         alert('Gagal aish, koling koling kaelo:', err);
     }
 };
+
+getData();

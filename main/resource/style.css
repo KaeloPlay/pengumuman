@@ -247,6 +247,19 @@ body, .side {
     content: "✔ ";
 }
 
+
+.normal-rds img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.bottom-rds img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+}
+
 .hidden {
     opacity: 0;
     visibility: hidden;
@@ -264,18 +277,6 @@ body, .side {
 
 .pr-empty {
     display: none !important;
-}
-
-.normal-rds img {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-
-.bottom-rds img {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-left-radius: 5rem;
-    border-bottom-right-radius: 5rem;
 }
 
 @keyframes fadeMemory {
