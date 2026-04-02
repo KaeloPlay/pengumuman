@@ -131,7 +131,6 @@ textarea:focus, .dropdown:focus {
 
 .disabled {
     display: none;
-    pointer-events: none;
 }
 
 .hidden {
