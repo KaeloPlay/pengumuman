@@ -146,6 +146,7 @@ body, .side {
 }
 
 .mapel h3 { color: #3B82F6; }
+.ulangan h3 { color: #F6413B; }
 .pr h3 { color: #F59E0B; }
 .piket h3 { color: #10B981; }
 .note h3 { color: #6B7280; }
@@ -275,7 +276,7 @@ body, .side {
     transition: all 0.7s ease;
 }
 
-.pr-empty {
+.empty {
     display: none !important;
 }
 

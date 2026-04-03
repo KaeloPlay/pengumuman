@@ -54,12 +54,14 @@ async function getData() {
 
 function renderData() {
     const tanggalEl = document.querySelector('#date');
+    const ulanganCard = document.querySelector('.ulangan ul');
     const mapelCard = document.querySelector('.mapel ul');
     const prCard = document.querySelector('.pr ul');
     const piketCard = document.querySelector('.piket ul');
     const noteCard = document.querySelector('.note p');
 
     mapelCard.innerHTML = '';
+    ulanganCard.innerHTML = '';
     prCard.innerHTML = '';
     piketCard.innerHTML = '';
 
@@ -71,8 +73,27 @@ function renderData() {
         mapelCard.appendChild(li);
     });
 
+    const ulanganParent = document.querySelector('.ulangan');
+    ulangan.forEach((ulanganItem, index) => {
+        if (ulangan.join('').trim() !== "") {
+            ulanganParent.classList.remove('empty');
+
+            const li = document.createElement('li');
+
+            li.textContent = ulanganItem;
+            li.dataset.index = index;
+
+            ulanganCard.appendChild(li);
+        } else {
+            ulanganParent.classList.add('empty');
+        }
+    });
+
+    const prParent = document.querySelector('.pr');
     pr.forEach((prItem, index) => {
-        if (prItem.trim() !== "") {
+        if (pr.join('').trim() !== "") {
+            prParent.classList.remove('empty');
+
             const li = document.createElement('li');
 
             li.textContent = prItem;
@@ -80,6 +101,8 @@ function renderData() {
 
             if (checkedPR[index]) li.classList.add('done');
             prCard.appendChild(li);
+        } else {
+            prParent.classList.add('empty');
         }
     })
 
@@ -108,35 +131,29 @@ function addWhenClicked() {
             localStorage.setItem('current_uuid', JSON.stringify(data.uuid));
         });
     });
-};
+}
 
 function showAll() {
     const headerEl = document.querySelector('.header');
-    const cardEls = document.querySelectorAll('.card')
+    const cardEls = document.querySelectorAll('.card');
     const subinfoEl = document.querySelector('.subinfo');
 
-    headerEl.classList.remove('hidden')
+    headerEl.classList.remove('hidden');
     headerEl.classList.add('show');
 
-    cardEls.forEach((card, index) => {
-        
+    const visibleCards = Array.from(cardEls)
+    .filter(card => !card.classList.contains('empty'));
+
+    visibleCards.forEach((card, index) => {
         setTimeout(() => {
             card.classList.remove('hidden');
             card.classList.add('show');
         }, index * 100);
     });
-    
-    if (pr[0] === '') {
-        console.log('PR is empty, hiding PR section.');
-        document.querySelector('#pr-section').classList.add('pr-empty');
-        document.querySelector('#pr-section').classList.add('hidden');
-    } else {
-        document.querySelector('#pr-section').classList.remove('pr-empty');
-    }
-       
-    subinfoEl.classList.remove('hidden')
+
+    subinfoEl.classList.remove('hidden');
     subinfoEl.classList.add('show');
-};
+}
 
 function hideAll() {
     const headerEl = document.querySelector('.header');
@@ -157,7 +174,7 @@ function hideAll() {
     subinfoEl.classList.remove('show')
     subinfoEl.classList.add('hidden');
 
-};
+}
 
 getData();
 
