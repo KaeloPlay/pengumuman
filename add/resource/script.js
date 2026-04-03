@@ -1,26 +1,51 @@
 const addPR = document.querySelector('#add-pr');
-const dropMapel = document.querySelector('#pr-mapel-drop');
+const dropMapelPR = document.querySelector('#pr-mapel-drop');
 const prItemsTemp = document.querySelector('#pr-items-template')
 const prContainer = document.querySelector('.pr-container');
+
+const addUlangan = document.querySelector('#add-ulangan');
+const dropMapelUl = document.querySelector('#ulangan-mapel-drop');
+const ulanganItemsTemp = document.querySelector('#ulangan-items-template')
+const ulanganContainer = document.querySelector('.ulangan-container');
+
 const sendInput = document.querySelector('#sendInput');
 
 addPR.addEventListener('click', () => {
     addPR.classList.add('disabled');
-    dropMapel.classList.remove('disabled');
+    dropMapelPR.classList.remove('disabled');
 });
 
-dropMapel.addEventListener('change', () => {
+addUlangan.addEventListener('click', () => {
+    addUlangan.classList.add('disabled');
+    dropMapelUl.classList.remove('disabled');
+});
+
+dropMapelPR.addEventListener('change', () => {
     const clone = prItemsTemp.content.cloneNode(true);
     const mapelEl = clone.querySelector('.pr-items-mapel')
-    mapelEl.textContent = dropMapel.value + ':';
+    mapelEl.textContent = dropMapelPR.value + ':';
     prContainer.appendChild(clone);
 
     addPR.classList.remove('disabled')
-    dropMapel.classList.add('disabled')
+    dropMapelPR.classList.add('disabled')
 
-    const option = dropMapel.querySelector(`option[value='${dropMapel.value}']`);
+    const option = dropMapelPR.querySelector(`option[value='${dropMapelPR.value}']`);
     option.disabled = true;
-    dropMapel.selectedIndex = 0;
+    dropMapelPR.selectedIndex = 0;
+});
+
+dropMapelUl.addEventListener('change', () => {
+    const clone = ulanganItemsTemp.content.cloneNode(true);
+    const mapelEl = clone.querySelector('.ulangan-items-mapel')
+    mapelEl.textContent = dropMapelUl.value + ':';
+    ulanganContainer.appendChild(clone);
+
+    addUlangan.classList.remove('disabled')
+    dropMapelUl.classList.add('disabled')
+
+    const option = dropMapelUl.querySelector(`option[value='${dropMapelUl.value}']`);
+    option.disabled = true;
+    dropMapelUl.selectedIndex = 0;
 });
 
 prContainer.addEventListener('keydown', (e) => {
@@ -31,7 +56,23 @@ prContainer.addEventListener('keydown', (e) => {
             const li = e.target.closest('li');
             const mapel = li.querySelector('.pr-items-mapel').textContent.replace(':', '');
 
-            const option = dropMapel.querySelector(`option[value='${mapel}']`);
+            const option = dropMapelPR.querySelector(`option[value='${mapel}']`);
+            if (option) option.disabled = false;
+            
+           li.remove();
+        };
+    };
+});
+
+ulanganContainer.addEventListener('keydown', (e) => {
+    if (e.target.classList.contains('ulangan-details-input')) {
+        if (e.key === 'Backspace' && e.target.value === '') {
+            e.preventDefault();
+
+            const li = e.target.closest('li');
+            const mapel = li.querySelector('.ulangan-items-mapel').textContent.replace(':', '');
+
+            const option = dropMapelUl.querySelector(`option[value='${mapel}']`);
             if (option) option.disabled = false;
             
            li.remove();
@@ -48,10 +89,20 @@ sendInput.addEventListener('click', () => {
         return `${mapel} ${value}`;
     });
 
+    const allUlangan = Array.from(document.querySelectorAll('.ulangan-items'))
+    .map(item => {
+        const mapel = item.querySelector('.ulangan-items-mapel').textContent;
+        const value = item.querySelector('.ulangan-details-input').value;
+
+        return `${mapel} ${value}`;
+    });
+
+    let ulangan = allUlangan.join('$ ');
     let pr = allPR.join('$ ');
     let tambahan = document.querySelector('#tambahanInput').value;
+    if (tambahan === '') tambahan = 'Tidak ada informasi tambahan untuk esok hari.';
     
-    postData(pr, tambahan);
+    postData(ulangan, pr, tambahan);
 });
 
 async function getData() {
@@ -67,15 +118,17 @@ async function getData() {
         mapelInput.value = mapel;
         piketInput.value = piket;
 
-        document.body.classList.add('show');
-        document.body.classList.remove('hidden');
     } catch (error) {
         console.error('Error fetching data:', error);
         alert('Ada error nih, tapi gapapa mungkin bisa lanjut:', error);
     }
+
+    document.body.classList.add('show');
+    document.body.classList.remove('hidden');
 }
 
-async function postData(pr, tambahan) {
+async function postData(ulangan, pr, tambahan) {
+    console.log('Posting data:', { ulangan, pr, tambahan });
     try {
         const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman', {
             method: 'POST',
@@ -83,12 +136,14 @@ async function postData(pr, tambahan) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                ulangan: ulangan,
                 pr: pr,
                 note: tambahan,
                 key: 'viic'
             })
         });
 
+        
         alert('Makasii sekle kecayangan kelas🥰');
         // location.reload();
     } catch (err) {

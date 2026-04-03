@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         .single();
 
         if (err1 || err2) {
-            return res.json({ error: err1 || err2 });
+            return res.status(500).json({ error: err1 || err2 });
         }
 
         const now = new Date();
@@ -50,32 +50,35 @@ export default async function handler(req, res) {
             })}` };
         }
 
+        console.log('Sent data to user.');
         return res.json({
             ...pengumuman,
             ...jadwal,
             ...tanggal_besok
         });
-        console.log('Sent data to user.');
     }
 
     if (req.method === 'POST') {
-        const { pr, note, key } = req.body;
+        const { ulangan, pr, note, key } = req.body;
 
         if (key !== 'viic') {
             return res.status(401).json({ error: 'Unauthorized' });
         }
 
+        console.log("Data masuk ke backend:", { ulangan, pr, note });
+
         const { error } = await supabase
         .from('pengumuman')
         .update({
+            ulangan,
             pr,
             note,
             uuid: crypto.randomUUID()
         })
         .eq('id', 1);
 
-        return res.json({ success: !error, error });
         console.log(`Got data from /add, success: ${!error}; ${error}`);
+        return res.json({ success: !error, error });
     }
     return res.status(405).json({ error: 'Method not allowed' });
 }

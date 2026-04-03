@@ -1,6 +1,7 @@
 let data = {};
 let tanggal;
 let mapel = [];
+let ulangan = [];
 let pr = [];
 let piket = [];
 let note = [];
@@ -23,12 +24,14 @@ async function getData() {
 
         tanggal = data.tanggal_besok;
         mapel = data.mapel.split(',').map(item => item.trim());
+        ulangan = data.ulangan.split('$').map(item => item.trim());
         pr = data.pr.split('$').map(item => item.trim());
         piket = data.piket.split(',').map(item => item.trim());
         note = data.note;
 
         console.log('Tanggal:', tanggal);
         console.log('Mapel:', mapel);
+        console.log('Ulangan:', ulangan);
         console.log('PR:', pr);
         console.log('Piket:', piket);
         console.log('Note:', note);
@@ -69,14 +72,15 @@ function renderData() {
     });
 
     pr.forEach((prItem, index) => {
-        const li = document.createElement('li');
+        if (prItem.trim() !== "") {
+            const li = document.createElement('li');
 
-        li.textContent = prItem;
-        li.dataset.index = index;
+            li.textContent = prItem;
+            li.dataset.index = index;
 
-        if (checkedPR[index]) li.classList.add('done');
-        
-        prCard.appendChild(li);
+            if (checkedPR[index]) li.classList.add('done');
+            prCard.appendChild(li);
+        }
     })
 
     piket.forEach(piketItem => {
