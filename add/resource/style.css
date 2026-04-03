@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 80px 20px;
     box-sizing: border-box;
     font-size: clamp(14px, 2.5vw, 18px);
     background-color: #ffffff;
@@ -26,7 +26,7 @@ textarea {
     margin-bottom: 10px;
     width: 97%;
     font-family: Monospace, sans-serif;
-    font-size: clamp(11px, 2.2vw, 16px);
+    font-size: clamp(11px, 2.5vw, 16px);
     resize: none;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -111,10 +111,13 @@ textarea:focus, .dropdown:focus {
 }
 
 #sendInput {
-    margin-top: auto;
-    margin-bottom: 10px;
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    z-index: 999;
     padding: 12px;
-    width: 100%;
+    width: 90%;
     box-sizing: border-box;
     display: block;
     font-family: 'Poppins', sans-serif;
@@ -123,11 +126,18 @@ textarea:focus, .dropdown:focus {
     border-radius: 8px;
     color: #ffffff;
     cursor: pointer;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    opacity: 1;
 }
 
 #sendInput:hover {
     font-weight: 500;
     border: 2px solid #ccc;
+}
+
+#sendInput.is-scrolling {
+    opacity: 0.3;
+    filter: blur(1px);
 }
 
 .disabled {
@@ -137,7 +147,6 @@ textarea:focus, .dropdown:focus {
 .hidden {
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-3px);
     pointer-events: none;
     transition: all 0.7s ease;
 }
@@ -145,6 +154,5 @@ textarea:focus, .dropdown:focus {
 .show {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0px);
     transition: all 0.7s ease;
 }

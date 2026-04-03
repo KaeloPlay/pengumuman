@@ -9,6 +9,16 @@ const ulanganItemsTemp = document.querySelector('#ulangan-items-template')
 const ulanganContainer = document.querySelector('.ulangan-container');
 
 const sendInput = document.querySelector('#sendInput');
+let isScrolling;
+
+window.addEventListener('scroll', () => {
+    sendInput.classList.add('is-scrolling');
+    window.clearTimeout(isScrolling);
+
+    isScrolling = setTimeout(() => {
+        sendInput.classList.remove('is-scrolling');
+    }, 200);
+});
 
 addPR.addEventListener('click', () => {
     addPR.classList.add('disabled');
