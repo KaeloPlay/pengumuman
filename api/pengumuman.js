@@ -60,6 +60,7 @@ export default async function handler(req, res) {
             pr: 'Libur hey😇',
             piket: 'Piket la sendirik😊',
             note: 'Selamat beristirahat.',
+            libur,
             uuid: crypto.randomUUID()
         });
     }
