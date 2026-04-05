@@ -58,7 +58,7 @@ function pointerDown()  {
                 }
 
                 if (holdProgress >= 100) {
-                    navigator.vibrate([40, 30, 2800]);
+                    navigator.vibrate([40, 30, 2400]);
                     held = true
                     clearInterval(interval);
                     isDown = false;
