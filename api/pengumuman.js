@@ -36,25 +36,39 @@ export default async function handler(req, res) {
             hour: '2-digit',
             hour12: false
         });
-
+        
         let tanggal_besok = {};
         if (hour >= 7) {
             now.setDate(now.getDate() + 1);
-
+            
             tanggal_besok = { tanggal_besok: `Besok, ${now.toLocaleDateString('sv-SE', {
             timeZone: 'Asia/Jakarta'
-            })}` };
+        })}` };
         } else if (hour >= 0 && hour < 7) {
             tanggal_besok = { tanggal_besok: `Hari ini, ${now.toLocaleDateString('sv-SE', {
             timeZone: 'Asia/Jakarta'
-            })}` };
-        }
-
-        console.log('Sent data to user.');
+        })}` };
+    }
+    
+    const { libur } = pengumuman;
+    if (libur) {
+         console.log('Sent libur data to user.');
         return res.json({
-            ...pengumuman,
-            ...jadwal,
-            ...tanggal_besok
+            tanggal_besok,
+            mapel: 'Libur🥳',
+            ulangan: '',
+            pr: 'Libur hey😇',
+            piket: 'Piket la sendirik😊',
+            note: 'Selamat beristirahat.',
+            uuid: crypto.randomUUID()
+        });
+    }
+
+    console.log('Sent data to user.');
+    return res.json({
+        ...pengumuman,
+        ...jadwal,
+        ...tanggal_besok
         });
     }
 
@@ -65,30 +79,30 @@ export default async function handler(req, res) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
 
-        console.log("Data masuk ke backend:", { ulangan, pr, note });
-
-        const { error: updateError } = await supabase
-        .from('pengumuman')
-        .update({
-            ulangan,
-            pr,
-            note,
-            uuid: crypto.randomUUID()
-        })
-        .eq('id', 1);
-
+        
+        if (libur === undefined) {
+            const { error: updateError } = await supabase
+            .from('pengumuman')
+            .update({
+                ulangan,
+                pr,
+                note,
+                uuid: crypto.randomUUID()
+            })
+            .eq('id', 1);
+            console.log("New data sent to backend:", { ulangan, pr, note });
+            return res.json({ success: !updateError, error: updateError });
+        }
+        
         if (libur !== undefined) {
             const { error: liburError } = await supabase
             .from('pengumuman')
             .update({ libur })
             .eq('id', 1);
-
-            if (liburError) {
-                return res.json({ success: !liburError, error: liburError });
-            }
+            console.log("Set libur to:", { libur });
+            return res.json({ success: !liburError, error: liburError });
         }
 
-        return res.json({ success: !updateError, error: updateError });
     }
     return res.status(405).json({ error: 'Method not allowed' });
 }
