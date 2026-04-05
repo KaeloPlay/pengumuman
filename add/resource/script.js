@@ -21,12 +21,14 @@ sendInput.addEventListener('click', () => {
     liburToggle();
 });
 
-function liburToggle() {
+function liburToggle(ignore) {
     sendInput.classList.toggle('active');
     sendInput.style.background = sendInput.classList.contains('active') ? '#6B7280' : 'transparent';
     sendText.style.color = sendInput.classList.contains('active') ? 'white' : '#ccc';
     sendText.textContent = sendInput.classList.contains('active') ? 'Mode libur aktif!' : 'Tahan untuk kirim / Klik untuk mode libur';
 
+    if (ignore) return;
+    
     if (!isLibur) {
         isLibur = true;
     } else {
@@ -241,7 +243,7 @@ async function getData() {
 
         isLibur = libur;
         if (isLibur) {
-            liburToggle();
+            liburToggle(true);
         }
 
         const mapelInput = document.querySelector('#mapelInput');
