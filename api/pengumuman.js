@@ -59,7 +59,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-        const { ulangan, pr, note, key } = req.body;
+        const { ulangan, pr, note, libur, key } = req.body;
 
         if (key !== 'viic') {
             return res.status(401).json({ error: 'Unauthorized' });
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
 
         console.log("Data masuk ke backend:", { ulangan, pr, note });
 
-        const { error } = await supabase
+        const { error: updateError } = await supabase
         .from('pengumuman')
         .update({
             ulangan,
@@ -77,8 +77,18 @@ export default async function handler(req, res) {
         })
         .eq('id', 1);
 
-        console.log(`Got data from /add, success: ${!error}; ${error}`);
-        return res.json({ success: !error, error });
+        if (libur !== undefined) {
+            const { error: liburError } = await supabase
+            .from('pengumuman')
+            .update({ libur })
+            .eq('id', 1);
+
+            if (liburError) {
+                return res.json({ success: !liburError, error: liburError });
+            }
+        }
+
+        return res.json({ success: !updateError, error: updateError });
     }
     return res.status(405).json({ error: 'Method not allowed' });
 }

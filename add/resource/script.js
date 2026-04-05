@@ -13,7 +13,7 @@ let isDown = false;
 let interval;
 let timeout;
 let held = false;
-let libur = false;
+let isLibur = false;
 
 sendInput.addEventListener('click', () => {
     if (isDown || held) return;
@@ -27,16 +27,36 @@ function liburToggle() {
     sendText.style.color = sendInput.classList.contains('active') ? 'white' : '#ccc';
     sendText.textContent = sendInput.classList.contains('active') ? 'Mode libur aktif!' : 'Tahan untuk kirim / Klik untuk mode libur';
 
-    if (!libur) {
-        libur = true;
-        console.log('func1 executed');
+    if (!isLibur) {
+        isLibur = true;
     } else {
-        libur = false;
+        isLibur = false;
+    }
+
+    updateLibur();
+}
+
+async function updateLibur() {
+    try {
+        const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                libur: isLibur,
+                key: 'viic'
+            })
+        });
+
+        console.log('Libur status updated:', isLibur);
+    } catch (error) {
+        console.error('Error updating libur status:', error);
     }
 }
 
 sendInput.addEventListener('pointerdown', () => {
-    if (held || libur) return;
+    if (held || isLibur) return;
     isDown = true
     pointerDown();
 });
@@ -65,7 +85,7 @@ function pointerDown()  {
 
                     confetti.addConfetti();
                     sendText.textContent = 'Terkirim!';
-                    console.log('func2 executed');
+                    sendData();
 
                     setTimeout(() => {
                         resetFill();
@@ -82,7 +102,7 @@ sendInput.addEventListener('pointerup', () => {
 });
 
 sendInput.addEventListener('pointerleave', () => {
-    if (!held || libur) {
+    if (!held || isLibur) {
         clearInterval(interval);
         resetFill();
     }
@@ -187,8 +207,7 @@ ulanganContainer.addEventListener('keydown', (e) => {
     };
 });
 
-/*
-sendInput.addEventListener('click', () => {
+function sendData() {
     const allPR = Array.from(document.querySelectorAll('.pr-items'))
     .map(item => {
         const mapel = item.querySelector('.pr-items-mapel').textContent;
@@ -211,15 +230,19 @@ sendInput.addEventListener('click', () => {
     if (tambahan === '') tambahan = 'Tidak ada informasi tambahan untuk esok hari.';
     
     postData(ulangan, pr, tambahan);
-});
-*/
+};
 
 async function getData() {
     try {
         const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman');
-        const { mapel, piket } = await res.json();
+        const { mapel, piket, libur } = await res.json();
 
-        console.log('Data fetched:', { mapel, piket });
+        console.log('Data fetched:', { mapel, piket, libur });
+
+        isLibur = libur;
+        if (isLibur) {
+            liburToggle();
+        }
 
         const mapelInput = document.querySelector('#mapelInput');
         const piketInput = document.querySelector('#piketInput');
