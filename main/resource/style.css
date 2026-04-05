@@ -176,6 +176,10 @@ body, .side {
     text-decoration: underline;
 }
 
+.note p {
+    user-select: text;
+}
+
 .memories {
     width: 80%;
     display: flex;
