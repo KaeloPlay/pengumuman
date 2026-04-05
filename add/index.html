@@ -2,6 +2,7 @@
 <html>
     <head>
         <script src="/add/resource/script.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
         <link href="/add/resource/style.css" rel="stylesheet">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -68,6 +69,9 @@
         <textarea id="piketInput" placeholder="(Otomatis)" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
         <p style="color: #6B7280;">📝 Tambahan</p>
         <textarea id="tambahanInput" placeholder="Isi tambahan jika ada*" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
-        <button type="button" id="sendInput">Done ga bang? Done lah masa engga</button>
+        <button type="button" id="sendInput">
+            <span class="fill"></span>
+            <span class="text">Tahan untuk kirim / Klik untuk mode libur</span>
+        </button>
     </body>
 </html>

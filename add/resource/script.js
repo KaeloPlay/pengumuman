@@ -1,3 +1,112 @@
+const confetti = new JSConfetti();
+
+const sendInput = document.querySelector('#sendInput');
+const fill = sendInput.querySelector('.fill');
+const sendText = sendInput.querySelector('.text');
+
+const HOLD_DURATION = 3000;
+
+let isScrolling;
+let holdTimer;
+let holdProgress = 0;
+let isDown = false;
+let interval;
+let timeout;
+let held = false;
+let libur = false;
+
+sendInput.addEventListener('click', () => {
+    if (isDown || held) return;
+    navigator.vibrate(40);
+    liburToggle();
+});
+
+function liburToggle() {
+    sendInput.classList.toggle('active');
+    sendInput.style.background = sendInput.classList.contains('active') ? '#6B7280' : 'transparent';
+    sendText.style.color = sendInput.classList.contains('active') ? 'white' : '#ccc';
+    sendText.textContent = sendInput.classList.contains('active') ? 'Mode libur aktif!' : 'Tahan untuk kirim / Klik untuk mode libur';
+
+    if (!libur) {
+        libur = true;
+        console.log('func1 executed');
+    } else {
+        libur = false;
+    }
+}
+
+sendInput.addEventListener('pointerdown', () => {
+    if (held || libur) return;
+    isDown = true
+    pointerDown();
+});
+
+function pointerDown()  {
+    timeout = setTimeout(() => {
+        if (isDown) {
+            holdProgress = 0;
+            sendInput.classList.add('holding');
+            sendText.textContent = 'Tahan...';
+
+            interval = setInterval(() => {
+                navigator.vibrate(40);
+                holdProgress += 1;
+                fill.style.height = `${holdProgress}%`;
+
+                if (holdProgress >= 40) {
+                    sendText.style.color = 'white';
+                }
+
+                if (holdProgress >= 100) {
+                    navigator.vibrate([40, 30, 2800]);
+                    held = true
+                    clearInterval(interval);
+                    isDown = false;
+
+                    confetti.addConfetti();
+                    sendText.textContent = 'Terkirim!';
+                    console.log('func2 executed');
+
+                    setTimeout(() => {
+                        resetFill();
+                    }, 3000);
+                }
+            }, HOLD_DURATION / 100);
+        }
+    }, 500);
+}
+
+sendInput.addEventListener('pointerup', () => {
+    isDown = false;
+    clearTimeout(timeout);
+});
+
+sendInput.addEventListener('pointerleave', () => {
+    if (!held || libur) {
+        clearInterval(interval);
+        resetFill();
+    }
+});
+
+function resetFill() {
+    held = false;
+    holdProgress = 0;
+    fill.style.height = "0%";
+    sendInput.classList.remove("holding");
+    sendText.style.color = '#ccc';
+    sendText.textContent = 'Tahan untuk kirim / Klik untuk mode libur';
+}
+
+window.addEventListener('scroll', () => {
+    sendInput.classList.add('is-scrolling');
+    window.clearTimeout(isScrolling);
+    
+    isScrolling = setTimeout(() => {
+        sendInput.classList.remove('is-scrolling');
+    }, 200);
+});
+
+
 const addPR = document.querySelector('#add-pr');
 const dropMapelPR = document.querySelector('#pr-mapel-drop');
 const prItemsTemp = document.querySelector('#pr-items-template')
@@ -7,18 +116,6 @@ const addUlangan = document.querySelector('#add-ulangan');
 const dropMapelUl = document.querySelector('#ulangan-mapel-drop');
 const ulanganItemsTemp = document.querySelector('#ulangan-items-template')
 const ulanganContainer = document.querySelector('.ulangan-container');
-
-const sendInput = document.querySelector('#sendInput');
-let isScrolling;
-
-window.addEventListener('scroll', () => {
-    sendInput.classList.add('is-scrolling');
-    window.clearTimeout(isScrolling);
-
-    isScrolling = setTimeout(() => {
-        sendInput.classList.remove('is-scrolling');
-    }, 200);
-});
 
 addPR.addEventListener('click', () => {
     addPR.classList.add('disabled');
@@ -90,6 +187,7 @@ ulanganContainer.addEventListener('keydown', (e) => {
     };
 });
 
+/*
 sendInput.addEventListener('click', () => {
     const allPR = Array.from(document.querySelectorAll('.pr-items'))
     .map(item => {
@@ -114,6 +212,7 @@ sendInput.addEventListener('click', () => {
     
     postData(ulangan, pr, tambahan);
 });
+*/
 
 async function getData() {
     try {
