@@ -139,6 +139,7 @@ body, .side {
 .card li {
     padding: 6px 10px;
     border-radius: 8px;
+    white-space: preline;
 }
 
 .ulangan li {
@@ -178,6 +179,10 @@ body, .side {
     color: #265579;
     background-color: #ffffff;
     text-decoration: underline;
+}
+
+.note p {
+    user-select: text;
 }
 
 .memories {
