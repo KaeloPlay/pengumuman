@@ -141,6 +141,10 @@ body, .side {
     border-radius: 8px;
 }
 
+.ulangan li {
+    white-space: pre-line;
+}
+
 .card li:hover {
     background-color: #f1f5f9;
 }
