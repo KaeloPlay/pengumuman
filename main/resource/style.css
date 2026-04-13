@@ -170,10 +170,20 @@ body, .side {
     max-width: calc(50% - 10px);
     box-sizing: border-box;
     margin-bottom: 0;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s ease;
 }
 
-.two-row:has(.pr:hover) .card {
+.two-row .pr {
+   border-right: inset 4px #ccc;
+   border-top-right-radius: 0;
+}
+
+.two-row .pr.stretch {
+    border-right: inset 0px #ccc;
+    border-top-right-radius: 12px;
+}
+
+.two-row:has(.pr.stretch) .card {
     flex-basis: 100%;
     max-width: 100%;
 }

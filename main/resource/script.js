@@ -324,3 +324,13 @@ window.addEventListener('pointerup', () => {
     left.style.opacity = 0;
     right.style.opacity = 0;
 });
+
+
+const prCard = document.querySelector('#pr-section');
+
+prCard.addEventListener('click', (e) => {
+    if (e.target.tagName.toLowerCase() === 'li') return;
+    
+    prCard.classList.toggle('stretch');
+    console.log('clicked pr card');
+});
