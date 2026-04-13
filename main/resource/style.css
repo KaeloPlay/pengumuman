@@ -111,9 +111,12 @@ body, .side {
 }
 
 .card {
-    background-color: #ffffff;
+    background: radial-gradient(circle, #fefefe29 0%, #fbfbfbab 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     padding: 16px;
     margin-bottom: 20px;
     transition: all 0.2s ease;
@@ -174,12 +177,12 @@ body, .side {
 }
 
 .two-row .pr {
-   border-right: inset 4px #ccc;
+   border-right: inset 4px rgba(150, 150, 150, 0.3);
    border-top-right-radius: 0;
 }
 
 .two-row .pr.stretch {
-    border-right: inset 0px #ccc;
+    border-right: inset 0px rgba(150, 150, 150, 0.3);
     border-top-right-radius: 12px;
 }
 
