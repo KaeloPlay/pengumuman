@@ -96,6 +96,10 @@ function renderData() {
 
             const li = document.createElement('li');
 
+            if (prItem.includes('$')) {
+                li.classList.add('placeholder');
+            }
+
             li.textContent = prItem;
             li.dataset.index = index;
 
@@ -121,6 +125,8 @@ function addWhenClicked() {
     const prItems = document.querySelectorAll('.pr li');
 
     prItems.forEach(pr => {
+        if (pr.classList.contains('placeholder')) return;
+
         pr.addEventListener('click', () => {
             navigator.vibrate(40);
             pr.classList.toggle('done');
@@ -331,10 +337,10 @@ const piketCard = document.querySelector('#piket-section');
 
 prCard.addEventListener('click', (e) => {
     if (e.target.tagName.toLowerCase() === 'li') return;
+
+    navigator.vibrate(30);
     piketCard.style.opacity = 0;
-    
     prCard.classList.toggle('stretch');
-    
     setTimeout(() => {
         piketCard.style.opacity = 1;
     }, 500);
