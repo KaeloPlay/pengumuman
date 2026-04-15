@@ -96,8 +96,9 @@ function renderData() {
 
             const li = document.createElement('li');
 
-            if (prItem.includes('$')) {
+            if (prItem.includes('#')) {
                 li.classList.add('placeholder');
+                prItem = prItem.replace('#', '').trim();
             }
 
             li.textContent = prItem;
@@ -107,6 +108,7 @@ function renderData() {
             prCard.appendChild(li);
         } else {
             prParent.classList.add('empty');
+            document.querySelectorAll('.two-row .card').forEach(card => card.style.maxWidth = '100%');
         }
     })
 
