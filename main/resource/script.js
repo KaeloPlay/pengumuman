@@ -327,10 +327,15 @@ window.addEventListener('pointerup', () => {
 
 
 const prCard = document.querySelector('#pr-section');
+const piketCard = document.querySelector('#piket-section');
 
 prCard.addEventListener('click', (e) => {
     if (e.target.tagName.toLowerCase() === 'li') return;
+    piketCard.style.opacity = 0;
     
     prCard.classList.toggle('stretch');
-    console.log('clicked pr card');
+    
+    setTimeout(() => {
+        piketCard.style.opacity = 1;
+    }, 500);
 });
