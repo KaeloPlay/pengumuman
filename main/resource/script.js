@@ -9,12 +9,34 @@ let checkedPR = {};
 
 document.addEventListener('visibilitychange', () => {
     if (end) return;
-
     if (document.visibilityState === 'visible') {
-        hideAll();
-        getData();
+        if (checkVersion()) {
+            hideAll();
+            getData();
+        }
     }
 });
+
+async function checkVersion() {
+    try {
+        const res = await fetch('https://viic-pengumuman.vercel.app/api/version.json?ts=' + Date.now());
+        const data = await res.json();
+
+        CURRENT_VERSION = JSON.parse(localStorage.getItem('app_version') || null);
+        document.querySelector('#version').textContent = `Versi: ${data.version}`;
+
+        if (data.version !== CURRENT_VERSION) {
+            localStorage.setItem('app_version', JSON.stringify(data.version));
+            window.location.reload();
+
+            return false;
+        } else {
+            return true
+        }
+    } catch (error) {
+        console.error('Error checking version:', error);
+    }
+}
 
 async function getData() {
     try {
@@ -144,7 +166,7 @@ function addWhenClicked() {
 function showAll() {
     const headerEl = document.querySelector('.header');
     const cardEls = document.querySelectorAll('.card');
-    const subinfoEl = document.querySelector('.subinfo');
+    const subinfoEls = document.querySelectorAll('.subinfo');
 
     headerEl.classList.remove('hidden');
     headerEl.classList.add('show');
@@ -159,8 +181,10 @@ function showAll() {
         }, index * 100);
     });
 
-    subinfoEl.classList.remove('hidden');
-    subinfoEl.classList.add('show');
+    subinfoEls.forEach(subinfo => {
+        subinfo.classList.remove('hidden');
+        subinfo.classList.add('show');
+    });
 }
 
 function hideAll() {

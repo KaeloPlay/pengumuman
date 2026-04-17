@@ -167,6 +167,16 @@ html, body {
     user-select: text;
 }
 
+.subinfo {
+    opacity: 0.5;
+    text-align: center;
+    font-size: clamp(10px, 1.5vh, 20px);
+}
+
+#version {
+    opacity: 0.3;
+}
+
 .done {
     text-decoration: line-through;
     color: #10B981;
