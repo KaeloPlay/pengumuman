@@ -12,18 +12,20 @@ html {
 
 body {
     background-color: #f5f7fb;
-    margin: 0;
-    height: 100%;
-    overflow-x: hidden ;
-    overflow-y: auto;
+    height: 100vh;
     font-family: 'Poppins', sans-serif;
-    width: 100%;
     touch-action: pan-y;
 
 }
 
-body, .side {
-    overscroll-behavior-y: none;
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    overscroll-behavior-x: none; 
+    overscroll-behavior-y: none; 
 }
 
 .wrapper {
@@ -40,17 +42,14 @@ body, .side {
     user-select: none;
     position: relative; 
     width: 200vw;
-    padding: 20px 0 28px;
+    padding: 20px 0 20px;
     box-sizing: border-box;
     touch-action: pan-y;
     will-change: transform;
-
 }
 
 .page {
     flex: 0 0 100vw;
-    width: 100vw;
-    min-height: 100vh;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

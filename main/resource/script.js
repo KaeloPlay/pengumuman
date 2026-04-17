@@ -197,7 +197,7 @@ let isDragging = false;
 let isHorizontal = null;
 let end = false;
 let currentPage = 0; // 0 untuk main-page, 1 untuk second-page
-const pageWidth = document.querySelector('.page').clientWidth;
+let pageWidth;
 
 // --- MODIFIKASI EVENT LISTENERS ---
 
@@ -231,6 +231,7 @@ window.addEventListener('pointermove', (e) => {
         // Mencegah scroll default browser saat swipe terdeteksi
         e.preventDefault(); 
 
+        pageWidth = document.querySelector('.page').clientWidth;
         let moveX = (-currentPage * pageWidth) + dx;
 
         // Rubber banding agar tidak swipe ke area kosong
