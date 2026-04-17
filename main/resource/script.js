@@ -187,27 +187,24 @@ function hideAll() {
 getData();
 
 
-const memoryBgm = document.querySelector('#memory-bgm')
-
-// --- MODIFIKASI VARIABEL ---
 let startX = 0;
-let startY = 0; // Tambahkan ini untuk menyimpan posisi Y awal
+let startY = 0;
 let currentX = 0;
 let isDragging = false;
 let isHorizontal = null;
 let end = false;
-let currentPage = 0; // 0 untuk main-page, 1 untuk second-page
+let currentPage = 0;
+let prevPage = 0;
 let pageWidth;
-
-// --- MODIFIKASI EVENT LISTENERS ---
+const allPages = document.querySelectorAll('.page');
 
 container.addEventListener('pointerdown', (e) => {
     if (end) return;
     isDragging = true;
     startX = e.clientX;
-    startY = e.clientY; // Tambahkan ini!
+    startY = e.clientY;
     isHorizontal = null;
-    container.style.transition = 'none'; // Matikan transisi saat drag agar responsif
+    container.style.transition = 'none';
 });
 
 window.addEventListener('pointermove', (e) => {
@@ -216,9 +213,7 @@ window.addEventListener('pointermove', (e) => {
     const dx = e.clientX - startX;
     const dy = Math.abs(e.clientY - startY); 
 
-    // 2. Penentuan Arah
     if (isHorizontal === null) {
-        // Jika gerakan horizontal sudah cukup signifikan dibanding vertikal
         if (Math.abs(dx) > 15 && Math.abs(dx) > dy) {
             isHorizontal = true;
         } else if (dy > 15) {
@@ -226,15 +221,12 @@ window.addEventListener('pointermove', (e) => {
         }
     }
 
-    // 3. Eksekusi Pergerakan Kontainer
     if (isHorizontal) {
-        // Mencegah scroll default browser saat swipe terdeteksi
         e.preventDefault(); 
 
         pageWidth = document.querySelector('.page').clientWidth;
         let moveX = (-currentPage * pageWidth) + dx;
 
-        // Rubber banding agar tidak swipe ke area kosong
         if (moveX > 60) moveX = 60; 
         if (moveX < -(window.innerWidth + 60)) moveX = -(window.innerWidth + 60);
 
@@ -247,11 +239,10 @@ window.addEventListener('pointerup', (e) => {
     isDragging = false;
 
     const dx = e.clientX - startX;
-    const threshold = window.innerWidth * 0.25; // 25% layar untuk benar-benar pindah
+    const threshold = window.innerWidth * 0.25;
 
     container.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
 
-    // Logika Perpindahan Halaman
     if (isHorizontal) {
         if (dx < -threshold && currentPage === 0) {
             currentPage = 1;
@@ -259,8 +250,16 @@ window.addEventListener('pointerup', (e) => {
             currentPage = 0;
         }
     }
-
+    
     container.style.transform = `translateX(${-currentPage * pageWidth}px)`;
+
+    if (currentPage !== prevPage) {
+        prevPage = currentPage;
+
+        setTimeout(() => {
+        allPages[currentPage].scrollIntoView();
+        }, 500);
+    }
 });
 
 
