@@ -14,9 +14,12 @@ body {
     background-color: #f5f7fb;
     margin: 0;
     height: 100%;
+    overflow-x: hidden ;
     overflow-y: auto;
-    overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
+    width: 100%;
+    touch-action: pan-y;
+
 }
 
 body, .side {
@@ -27,72 +30,32 @@ body, .side {
     width: 100%;
 }
 
-.side {
-    position: fixed;
-    top: 0;
-    height: 100%;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 50px;
-    box-sizing: border-box;
-    opacity: 0;
-    z-index: 1;
-    transition: all 0.25s ease;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.left {
-    left: 0;
-}
-
-.left p {
-    transform: rotate(-90deg);
-}
-
-.right {
-    right: 0;
-}
-
-.right p {
-    transform: rotate(90deg);
-}
-
-.side p {
-    position: absolute;
-    top: 50%;
-    white-space: nowrap;
-    font-size: clamp(12px, 2.5vw, 16px);
-    opacity: 0.8;
-    text-align: center;
-    letter-spacing: 0.5px;
-    margin: 10px;
-    transform-origin: center;
-    transition: opacity 0.8s ease;
-}
-
 .container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    gap: 0;
+    align-items: flex-start;
     font-size: clamp(14px, 2.5vw, 18px);
     background: none;
     user-select: none;
-    position: fixed;
-    z-index: 1;
-    inset: 0;
-    padding: 20px 18px 28px;
+    position: relative; 
+    width: 200vw;
+    padding: 20px 0 28px;
     box-sizing: border-box;
-    width: 100vw;
-    min-height: 100%;
     touch-action: pan-y;
-    transition: transform 0.3s ease;
     will-change: transform;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+
+}
+
+.page {
+    flex: 0 0 100vw;
+    width: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 18px;
 }
 
 .header, .card, .two-row {

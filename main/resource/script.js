@@ -181,156 +181,85 @@ function hideAll() {
 
     subinfoEl.classList.remove('show')
     subinfoEl.classList.add('hidden');
-
+    
 }
 
 getData();
 
 
-const container = document.querySelector('#container');
-const side = document.querySelector('.side');
-const left = document.querySelector('.left');
-const leftP = left.querySelector('p');
-const right = document.querySelector('.right');
-const rightP = right.querySelector('p');
-
 const memoryBgm = document.querySelector('#memory-bgm')
 
+// --- MODIFIKASI VARIABEL ---
 let startX = 0;
-let startY = 0;
+let startY = 0; // Tambahkan ini untuk menyimpan posisi Y awal
 let currentX = 0;
 let isDragging = false;
-let vibrate = false;
 let isHorizontal = null;
-let openLeft = false;
-let holdTimeout = null;
 let end = false;
+let currentPage = 0; // 0 untuk main-page, 1 untuk second-page
+const pageWidth = document.querySelector('.page').clientWidth;
+
+// --- MODIFIKASI EVENT LISTENERS ---
 
 container.addEventListener('pointerdown', (e) => {
     if (end) return;
-
     isDragging = true;
-    vibrate = true
     startX = e.clientX;
-    startY = e.clientY;
+    startY = e.clientY; // Tambahkan ini!
     isHorizontal = null;
-    container.style.transition = 'none';
+    container.style.transition = 'none'; // Matikan transisi saat drag agar responsif
 });
 
 window.addEventListener('pointermove', (e) => {
     if (end || !isDragging) return;
 
-    currentX = (e.clientX - startX) * 0.5;
-
     const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
+    const dy = Math.abs(e.clientY - startY); 
 
+    // 2. Penentuan Arah
     if (isHorizontal === null) {
-        isHorizontal = Math.abs(dx) > Math.abs(dy);
-    }
-
-    if (!isHorizontal) return;
-
-    if (currentX > 100) {
-        currentX = 100;
-
-        if (vibrate) {
-            navigator.vibrate(20);
-            vibrate = false;
-        }
-
-        if (!openLeft && !holdTimeout) {
-            holdTimeout = setTimeout(() => {
-                if (isDragging) {
-                    openLeft = true 
-                    navigator.vibrate([30, 20, 30])
-                    console.log('lock')
-                }
-                holdTimeout = null;
-            }, 1500);
+        // Jika gerakan horizontal sudah cukup signifikan dibanding vertikal
+        if (Math.abs(dx) > 15 && Math.abs(dx) > dy) {
+            isHorizontal = true;
+        } else if (dy > 15) {
+            isHorizontal = false;
         }
     }
 
-    if (currentX < -100) {
-        if (vibrate) {
-            navigator.vibrate(20);
-            vibrate = false;
-        }
-        currentX = -100;
+    // 3. Eksekusi Pergerakan Kontainer
+    if (isHorizontal) {
+        // Mencegah scroll default browser saat swipe terdeteksi
+        e.preventDefault(); 
+
+        let moveX = (-currentPage * pageWidth) + dx;
+
+        // Rubber banding agar tidak swipe ke area kosong
+        if (moveX > 60) moveX = 60; 
+        if (moveX < -(window.innerWidth + 60)) moveX = -(window.innerWidth + 60);
+
+        container.style.transform = `translateX(${moveX}px)`;
     }
-    
-    container.style.transform = `translateX(${currentX}px)`;
-    left.style.opacity = currentX > 0 ? currentX / 100 : 0;
-    right.style.opacity = currentX < 0 ? -currentX / 100 : 0;
 });
 
-window.addEventListener('pointerup', () => {
-    if (end) return;
-    
-    if (holdTimeout) {
-        clearTimeout(holdTimeout);
-        holdTimeout = null;
-    }
-
-    if (currentX === 100) {
-        if (openLeft) {
-            end = true;
-            isDragging = false;
-            container.style.transition = 'transform 0.75s ease';
-            container.style.transform = `translateX(100vw)`;
-            
-            setTimeout(() => {
-                container.style.display = 'none'; 
-            }, 750);
-
-            leftP.style.opacity = 0;
-
-            setTimeout(() => {
-                memoryBgm.play();
-                left.style.transition = 'box-shadow 4s ease';
-                left.style.boxShadow = 'inset 0px 0px 20vw 10px rgba(0, 0, 0, 0.2)';
-                left.style.width = '100%';
-
-                side.style.flexDirection = 'column';
-                side.style.zIndex = '2';
-
-                const overlay = document.querySelector('.nst-overlay');
-                overlay.classList.remove('hidden');
-                overlay.classList.add('show');
-
-                setTimeout(() => {
-                    const memoriesEl = document.querySelector('.memories');
-                    const imgs = memoriesEl.querySelectorAll('img');
-                    const vids = memoriesEl.querySelectorAll('video');
-                    const medias = [...imgs, ...vids];
-
-                    medias.forEach(media => {
-                        media.style.animationName = 'fadeMemory';
-                        media.style.animationDuration = '3s';
-                        media.style.animationTimingFunction = 'ease';
-                        media.style.animationFillMode = 'forwards';
-                        
-                        if (media.matches('img:nth-child(1)')) {
-                            media.style.animationDelay = '0.2s';
-                        } else if (media.matches('img:nth-child(2)')) {
-                            media.style.animationDelay = '0.5s';
-                        }
-                    });
-                }, 1800);
-            }, 2500);
-        }
-    } else {
-        openLeft = false;
-    }
-    
-    if (!isDragging) return;
+window.addEventListener('pointerup', (e) => {
+    if (end || !isDragging) return;
     isDragging = false;
 
-    container.style.transition = 'transform 0.3s ease';
-    container.style.transform = `translateX(0px)`;
+    const dx = e.clientX - startX;
+    const threshold = window.innerWidth * 0.25; // 25% layar untuk benar-benar pindah
 
-    left.style.opacity = 0;
-    right.style.opacity = 0;
+    container.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+
+    // Logika Perpindahan Halaman
+    if (isHorizontal) {
+        if (dx < -threshold && currentPage === 0) {
+            currentPage = 1;
+        } else if (dx > threshold && currentPage === 1) {
+            currentPage = 0;
+        }
+    }
+
+    container.style.transform = `translateX(${-currentPage * pageWidth}px)`;
 });
 
 
