@@ -19,10 +19,11 @@ document.addEventListener('visibilitychange', () => {
 
 async function checkVersion() {
     try {
-        const res = await fetch('https://viic-pengumuman.vercel.app/api/version.json?ts=' + Date.now());
+        const res = await fetch('https://viic-pengumuman.vercel.app/version.json?ts=' + Date.now());
         const data = await res.json();
 
         CURRENT_VERSION = JSON.parse(localStorage.getItem('app_version') || null);
+        console.log('Current version:', CURRENT_VERSION);
         document.querySelector('#version').textContent = `Versi: ${data.version}`;
 
         if (data.version !== CURRENT_VERSION) {
@@ -39,6 +40,7 @@ async function checkVersion() {
 }
 
 async function getData() {
+    checkVersion();
     try {
         const res = await fetch('https://viic-pengumuman.vercel.app/api/pengumuman');
         data = await res.json();
