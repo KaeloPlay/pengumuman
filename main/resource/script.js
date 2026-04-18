@@ -24,7 +24,7 @@ async function checkVersion() {
 
         CURRENT_VERSION = JSON.parse(localStorage.getItem('app_version')) || null;
         console.log('Current version:', CURRENT_VERSION);
-        document.querySelector('#version').textContent = `Versi: ${data.version}`;
+        document.querySelector('#version').textContent = `Build: ${data.version}`;
 
         if (data.version !== CURRENT_VERSION) {
             localStorage.setItem('app_version', JSON.stringify(data.version));
