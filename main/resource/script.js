@@ -222,7 +222,6 @@ let end = false;
 let currentPage = 0;
 let prevPage = 0;
 let pageWidth;
-const allPages = document.querySelectorAll('.page');
 
 container.addEventListener('pointerdown', (e) => {
     if (end) return;
@@ -283,7 +282,7 @@ window.addEventListener('pointerup', (e) => {
         prevPage = currentPage;
 
         setTimeout(() => {
-        allPages[currentPage].scrollIntoView();
+        document.querySelector('html').scrollIntoView();
         }, 500);
     }
 });
