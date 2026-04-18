@@ -282,7 +282,7 @@ window.addEventListener('pointerup', (e) => {
         prevPage = currentPage;
 
         setTimeout(() => {
-        document.querySelector('html').scrollIntoView();
+        document.querySelector('html').scrollIntoView({ scrollBehavior: 'smooth' });
         }, 500);
     }
 });
