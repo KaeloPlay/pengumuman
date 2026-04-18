@@ -73,12 +73,12 @@ html, body {
     justify-content: left;
     background-image: linear-gradient(
         140deg,
-        rgba(245, 247, 251, 0.2) 70%,
-        rgba(167, 196, 223, 0.1) 100%);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+        rgba(245, 247, 251, 0.7) 70%,
+        rgba(167, 196, 223, 0.2) 100%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     margin-bottom: 20px;
 }
@@ -88,8 +88,8 @@ html, body {
         140deg,
         rgba(245, 247, 251, 0.2) 70%,
         rgba(167, 196, 223, 0.1) 100%);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
