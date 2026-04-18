@@ -22,7 +22,7 @@ async function checkVersion() {
         const res = await fetch('https://viic-pengumuman.vercel.app/api/build-version');
         const data = await res.json();
 
-        CURRENT_VERSION = __APP_VERSION__;
+        CURRENT_VERSION = JSON.parse(localStorage.getItem('app_version')) || null;
         console.log('Current version:', CURRENT_VERSION);
         document.querySelector('#version').textContent = `Versi: ${data.version}`;
 
