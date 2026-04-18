@@ -12,7 +12,7 @@ html {
 }
 
 body {
-    background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
+    background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)), 
                 url('/medias/bg.jpg');
     background-size: cover;
     background-position: center;
@@ -35,6 +35,7 @@ html, body {
 
 .wrapper {
     width: 100%;
+    z-index: 1;
 }
 
 .container {
@@ -71,10 +72,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: left;
-    background-image: linear-gradient(
-        140deg,
-        rgba(245, 247, 251, 0.7) 70%,
-        rgba(167, 196, 223, 0.2) 100%);
+    background-image:rgba(245, 247, 251, 1);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 12px;
