@@ -18,6 +18,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
+    min-height: 100dvh;
     font-family: 'Poppins', sans-serif;
     touch-action: pan-y;
 }
