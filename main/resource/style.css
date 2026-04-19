@@ -84,6 +84,23 @@ html, body {
     will-change: transform;
 }
 
+@media (min-width: 784px) {
+    .container {
+        width: 100vw !important;
+        justify-content: center;
+        transform: none !important;
+        padding-top: 20px;
+    }
+
+    .page {
+        flex: 0 1 500px !important;
+    }
+
+    #page-indicator {
+        display: none;
+    }
+}
+
 .page {
     flex: 0 0 100vw;
     box-sizing: border-box;
