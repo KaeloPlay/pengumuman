@@ -7,6 +7,47 @@ let piket = [];
 let note = [];
 let checkedPR = {};
 
+let lowMode = false;
+let frameCount = 0;
+let lastSampleTime = performance.now();
+const LOW_FPS_ON = 30;
+const LOW_FPS_OFF = 35;
+const SAMPLE_RATE = 1000; // 1 second
+
+function checkFPS(now) {
+    frameCount++;
+    const elapsed = now - lastSampleTime;
+
+    if (elapsed > SAMPLE_RATE * 2) {
+        lastSampleTime = now;
+        frameCount = 0;
+        requestAnimationFrame(checkFPS);
+        return;
+    }
+
+    if (elapsed >= SAMPLE_RATE) {
+        const fps = Math.round((frameCount * 1000) / elapsed);
+        console.log(`FPS: ${fps}`);
+        
+        if (!lowMode && fps < LOW_FPS_ON) {
+            lowMode = true;
+            document.body.classList.add('low-mode');
+            console.warn(`Low FPS: ${fps}. Low mode enabled.`);
+        } else if (lowMode && fps >= LOW_FPS_OFF) {
+            lowMode = false;
+            document.body.classList.remove('low-mode');
+            console.log(`FPS recovered: ${fps}. Low mode disabled.`);
+        }
+
+        frameCount = 0;
+        lastSampleTime = now;
+    }
+
+    requestAnimationFrame(checkFPS);
+}
+
+requestAnimationFrame(checkFPS);
+
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
         if (checkVersion()) {
@@ -194,10 +235,6 @@ function showAll() {
     setTimeout(() => {
         updatePageIndicator();
     }, 500);
-
-    setTimeout(() => {
-        checkFPS();
-    }, 1000);
 }
 
 function hideAll() {
