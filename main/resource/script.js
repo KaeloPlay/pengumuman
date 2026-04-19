@@ -13,23 +13,30 @@ let frameCount = 0;
 let lastSampleTime = performance.now();
 const LOW_FPS_ON = 30;
 const LOW_FPS_OFF = 35;
+const SAMPLE_RATE = 1000; // 1 second
 
 function checkFPS(now) {
     frameCount++;
-
     const elapsed = now - lastSampleTime;
 
-    if (elapsed >= 1000) {
-        const fps = Math.round((frameCount * 1000) / elapsed);
+    if (elapsed > SAMPLE_RATE * 2) {
+        lastSampleTime = now;
+        frameCount = 0;
+        requestAnimationFrame(checkFPS);
+        return;
+    }
 
+    if (elapsed >= SAMPLE_RATE) {
+        const fps = Math.round((frameCount * 1000) / elapsed);
+        
         if (!lowMode && fps < LOW_FPS_ON) {
             lowMode = true;
             document.body.classList.add('low-mode');
-            console.warn(`Low FPS detected: ${fps}. Enabling low mode.`);
+            console.warn(`Low FPS: ${fps}. Low mode enabled.`);
         } else if (lowMode && fps >= LOW_FPS_OFF) {
             lowMode = false;
             document.body.classList.remove('low-mode');
-            console.log(`FPS recovered: ${fps}. Disabling low mode.`);
+            console.log(`FPS recovered: ${fps}. Low mode disabled.`);
         }
 
         frameCount = 0;

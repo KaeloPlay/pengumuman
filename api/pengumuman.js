@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     
     const { libur } = pengumuman;
     if (libur) {
-         console.log('Sent libur data to user.');
+        console.log('Returning libur data to user.');
         return res.json({
             ...tanggal_besok,
             mapel: 'Libur🥳',
@@ -100,7 +100,7 @@ export default async function handler(req, res) {
             .from('pengumuman')
             .update({ libur })
             .eq('id', 1);
-            console.log("Set libur to:", libur);
+            console.log("Updated libur to:", libur);
             return res.json({ success: !liburError, error: liburError });
         }
 
