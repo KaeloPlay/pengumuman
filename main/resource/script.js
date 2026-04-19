@@ -301,3 +301,22 @@ prCard.addEventListener('click', (e) => {
         piketCard.style.opacity = 1;
     }, 500);
 });
+
+
+let lastFrame = performance.now();
+let fps;
+
+function checkFPS() {
+    const now = performance.now();
+    fps = 1000 / (now - lastFrame);
+    lastFrame = now;
+
+    if (fps < 30) {
+        document.body.classList.add('low-mode');
+    } else {
+        document.body.classList.remove('low-mode');
+    }
+    requestAnimationFrame(checkFPS);
+}
+
+checkFPS();
