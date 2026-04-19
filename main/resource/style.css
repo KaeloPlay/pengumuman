@@ -38,12 +38,13 @@ html, body {
     display: flex;
     justify-content: center;
     border-radius: 12px;
-    margin: 10px 0 6px;
+    margin: 10px 0 10px;
 }
 
 #page-indicator ul {
     display: flex;
     justify-content: center;
+    flex: 0;
     gap: 10px;
     padding: 0;
     margin: 0;
@@ -51,7 +52,7 @@ html, body {
 }
 
 #page-indicator li {
-    width: 24px;
+    width: 32px;
     height: 3px;
     border-radius: 4px;
     background: rgba(0,0,0,0.2);
@@ -60,7 +61,7 @@ html, body {
 
 #page-indicator li.active {
     background: #3B82F6;
-    width: 32px;
+    width: 48px;
 }
 
 .wrapper {

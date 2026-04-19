@@ -189,6 +189,7 @@ function showAll() {
     const headerEl = document.querySelector('.header');
     const cardEls = document.querySelectorAll('.card');
     const subinfoEls = document.querySelectorAll('.subinfo');
+    const pageIndicatorEl = document.querySelector('#page-indicator');
 
     headerEl.classList.remove('hidden');
     headerEl.classList.add('show');
@@ -207,6 +208,13 @@ function showAll() {
         subinfo.classList.remove('hidden');
         subinfo.classList.add('show');
     });
+
+    pageIndicatorEl.classList.remove('hidden');
+    pageIndicatorEl.classList.add('show');
+
+    setTimeout(() => {
+        updatePageIndicator();
+    }, 500);
 
     setTimeout(() => {
         checkFPS();
@@ -236,6 +244,19 @@ function hideAll() {
 
 getData();
 
+
+const pageIndicator = document.querySelector('#page-indicator');
+const indicators = pageIndicator.querySelectorAll('li');
+
+function updatePageIndicator() {
+    indicators.forEach((indicator, index) => {
+        if (index === currentPage) {
+            indicator.classList.add('active');
+        } else {
+            indicator.classList.remove('active');
+        }
+    });
+}
 
 let startX = 0;
 let startY = 0;
@@ -296,6 +317,7 @@ window.addEventListener('pointerup', (e) => {
         } else if (dx > threshold && currentPage === 1) {
             currentPage = 0;
         }
+        updatePageIndicator();
     }
     
     container.style.transform = `translateX(${-currentPage * pageWidth}px)`;
