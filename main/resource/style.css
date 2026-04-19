@@ -151,6 +151,7 @@ html, body {
 .pr h3 { color: #F59E0B; }
 .piket h3 { color: #10B981; }
 .note h3 { color: #6B7280; }
+.deadline h3 { color: #ec6b66; }
 
 .two-row {
     display: flex;
