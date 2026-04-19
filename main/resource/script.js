@@ -305,6 +305,7 @@ prCard.addEventListener('click', (e) => {
 
 let lastFrame = performance.now();
 let fps;
+let lowMode = false;
 
 function checkFPS() {
     const now = performance.now();
@@ -312,8 +313,9 @@ function checkFPS() {
     lastFrame = now;
 
     if (fps < 30) {
+        lowMode = true;
         document.body.classList.add('low-mode');
-    } else {
+    } else if (!lowMode && fps >= 30) {
         document.body.classList.remove('low-mode');
     }
     requestAnimationFrame(checkFPS);
