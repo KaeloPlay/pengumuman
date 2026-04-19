@@ -7,8 +7,28 @@ let piket = [];
 let note = [];
 let checkedPR = {};
 
+let lastFrame = performance.now();
+let fps;
+let lowMode = false;
+
+function checkFPS() {
+    const now = performance.now();
+    fps = 1000 / (now - lastFrame);
+    lastFrame = now;
+
+    setTimeout(() => {
+        if (fps < 30) {
+            lowMode = true;
+            document.body.classList.add('low-mode');
+            console.warn(`Low FPS detected: ${Math.round(fps)}. Enabling low mode.`);
+        } else if (!lowMode && fps >= 30) {
+            document.body.classList.remove('low-mode');
+        }
+    }, 1000);
+    requestAnimationFrame(checkFPS);
+}
+
 document.addEventListener('visibilitychange', () => {
-    if (end) return;
     if (document.visibilityState === 'visible') {
         if (checkVersion()) {
             hideAll();
@@ -187,6 +207,10 @@ function showAll() {
         subinfo.classList.remove('hidden');
         subinfo.classList.add('show');
     });
+
+    setTimeout(() => {
+        checkFPS();
+    }, 1000);
 }
 
 function hideAll() {
@@ -218,13 +242,11 @@ let startY = 0;
 let currentX = 0;
 let isDragging = false;
 let isHorizontal = null;
-let end = false;
 let currentPage = 0;
 let prevPage = 0;
 let pageWidth;
 
 container.addEventListener('pointerdown', (e) => {
-    if (end) return;
     isDragging = true;
     startX = e.clientX;
     startY = e.clientY;
@@ -233,7 +255,7 @@ container.addEventListener('pointerdown', (e) => {
 });
 
 window.addEventListener('pointermove', (e) => {
-    if (end || !isDragging) return;
+    if (!isDragging) return;
 
     const dx = e.clientX - startX;
     const dy = Math.abs(e.clientY - startY); 
@@ -260,7 +282,7 @@ window.addEventListener('pointermove', (e) => {
 });
 
 window.addEventListener('pointerup', (e) => {
-    if (end || !isDragging) return;
+    if (!isDragging) return;
     isDragging = false;
 
     const dx = e.clientX - startX;
@@ -302,23 +324,3 @@ prCard.addEventListener('click', (e) => {
     }, 500);
 });
 
-
-let lastFrame = performance.now();
-let fps;
-let lowMode = false;
-
-function checkFPS() {
-    const now = performance.now();
-    fps = 1000 / (now - lastFrame);
-    lastFrame = now;
-
-    if (fps < 30) {
-        lowMode = true;
-        document.body.classList.add('low-mode');
-    } else if (!lowMode && fps >= 30) {
-        document.body.classList.remove('low-mode');
-    }
-    requestAnimationFrame(checkFPS);
-}
-
-checkFPS();
