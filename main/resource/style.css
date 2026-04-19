@@ -152,6 +152,16 @@ html, body {
 .piket h3 { color: #10B981; }
 .note h3 { color: #6B7280; }
 .deadline h3 { color: #ec6b66; }
+.besar h3 {
+    background: linear-gradient(
+        170deg,
+        rgba(241, 62, 104),
+        rgba(177, 173, 174)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 .two-row {
     display: flex;

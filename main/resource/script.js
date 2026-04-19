@@ -27,7 +27,6 @@ function checkFPS(now) {
 
     if (elapsed >= SAMPLE_RATE) {
         const fps = Math.round((frameCount * 1000) / elapsed);
-        console.log(`FPS: ${fps}`);
         
         if (!lowMode && fps < LOW_FPS_ON) {
             lowMode = true;
