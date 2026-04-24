@@ -59,7 +59,7 @@ export default async function handler(req, res) {
             ulangan: '',
             pr: '',
             piket: '',
-            note: 'Gunakan waktu sebaik mungkin!',
+            note: '@Gunakan waktu sebaik mungkin!',
             libur,
             uuid: crypto.randomUUID()
         });
