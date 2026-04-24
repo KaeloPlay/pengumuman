@@ -55,11 +55,11 @@ export default async function handler(req, res) {
         console.log('Returning libur data to user.');
         return res.json({
             ...tanggal_besok,
-            mapel: 'Libur🥳',
+            mapel: 'Pembelajaran untuk esok hari ditiadakan. (Libur)',
             ulangan: '',
-            pr: 'Libur hey😇',
-            piket: 'Piket la sendirik😊',
-            note: 'Selamat beristirahat.',
+            pr: '',
+            piket: '',
+            note: 'Gunakan waktu sebaik mungkin!',
             libur,
             uuid: crypto.randomUUID()
         });

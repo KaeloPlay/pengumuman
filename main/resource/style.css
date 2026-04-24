@@ -287,3 +287,16 @@ html, body {
 .low-mode video {
     display: none !important;
 }
+
+.note:has(.center) {
+    min-height: 40px;
+}
+
+.note:has(.center) p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(20px, 1.5vw, 26px);
+    font-weight: 500;
+    opacity: 0.75;
+}

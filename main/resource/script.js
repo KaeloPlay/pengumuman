@@ -4,7 +4,7 @@ let mapel = [];
 let ulangan = [];
 let pr = [];
 let piket = [];
-let note = [];
+let note = '';
 let checkedPR = {};
 
 let lowMode = false;
@@ -175,13 +175,32 @@ function renderData() {
         }
     })
 
+    const piketParent = document.querySelector('.piket');
     piket.forEach(piketItem => {
-        const li = document.createElement('li');
-        li.textContent = piketItem;
-        piketCard.appendChild(li);
+        if (piket.join('').trim() !== "") {
+            piketParent.classList.remove('empty', 'stretch', 'fix');
+
+            const li = document.createElement('li');
+            li.textContent = piketItem;
+            piketCard.appendChild(li);
+        } else {
+            piketParent.classList.add('empty', 'stretch', 'fix');
+        }
     });
 
+    if (note.includes('@')) {
+        note = note.replace('@', '')
+        noteCard.classList.add('center');
+    } else {
+        noteCard.classList.remove('center');
+    }
     noteCard.textContent = note;
+
+    if (pr.join('').trim() === "" && piket.join('').trim() === "") {
+        document.querySelector('.two-row').classList.add('empty');
+    } else {
+        document.querySelector('.two-row').classList.remove('empty');
+    }
 
     showAll();
 }
@@ -351,7 +370,7 @@ const prCard = document.querySelector('#pr-section');
 const piketCard = document.querySelector('#piket-section');
 
 prCard.addEventListener('click', (e) => {
-    if (e.target.tagName.toLowerCase() === 'li') return;
+    if (e.target.tagName.toLowerCase() === 'li' || prCard.classList.contains('fix')) return;
 
     navigator.vibrate(30);
     piketCard.style.opacity = 0;
