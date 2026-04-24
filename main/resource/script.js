@@ -11,7 +11,7 @@ let lowMode = false;
 let frameCount = 0;
 let lastSampleTime = performance.now();
 const LOW_FPS_ON = 30;
-const LOW_FPS_OFF = 35;
+const LOW_FPS_OFF = 50;
 const SAMPLE_RATE = 1000; // 1 second
 
 function checkFPS(now) {
