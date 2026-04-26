@@ -379,4 +379,3 @@ prCard.addEventListener('click', (e) => {
         piketCard.style.opacity = 1;
     }, 500);
 });
-
