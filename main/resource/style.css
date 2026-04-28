@@ -233,6 +233,34 @@ html, body {
     opacity: 0.3;
 }
 
+#notification {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    padding: 16px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+    cursor: default;
+    background: #ffffff;
+    position: fixed;
+    z-index: 1;
+    top: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(100% - 36px, 560px);
+}
+
+#notification p {
+    margin: 0;
+}
+
+#notification span {
+    color: #ccc;
+    font-size: 12px;
+}
+
 .done {
     text-decoration: line-through;
     color: #10B981;
