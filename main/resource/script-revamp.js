@@ -251,7 +251,7 @@ function renderNote() {
         el.note.classList.remove('center');
     }
 
-    el.note.textContent = note;
+    el.note.innerHTML = note;
 }
 
 function renderLayout() {
