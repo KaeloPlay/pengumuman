@@ -1,8 +1,8 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "/redirect/([^/]+)",
-      "dest": "api/redirect/$1"
+      "source": "/redirect/:key",
+      "destination": "/api/redirect/:key"
     }
   ]
 }
