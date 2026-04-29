@@ -2,7 +2,7 @@
   "routes": [
     {
       "src": "/redirect/([^/]+)",
-      "dest": "/redirect/$1"
+      "dest": "api/redirect/$1"
     }
   ]
 }
