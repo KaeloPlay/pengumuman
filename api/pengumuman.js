@@ -1,4 +1,4 @@
-import { createClient } from '../lib/supabase'
+import { createClient } from '../lib/supabase.js'
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
