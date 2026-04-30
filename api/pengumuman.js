@@ -1,9 +1,4 @@
-import { createClient as createClientPengumuman } from '@supabase/supabase-js'
-
-export const supabase = createClientPengumuman(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-)
+import { supabase } from "../lib/supabase";
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');

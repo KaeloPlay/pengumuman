@@ -1,9 +1,4 @@
-import { createClient as createClientRedirect } from '@supabase/supabase-js'
-
-export const supaRedirect = createClientRedirect(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-)
+import { supabase } from "../../lib/supabase";
 
 export default async function handler(req, res) {
     const { key } = req.query;
