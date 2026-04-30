@@ -319,6 +319,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-alignx center;
     font-size: clamp(20px, 1.5vw, 26px);
     font-weight: 500;
     opacity: 0.75;
