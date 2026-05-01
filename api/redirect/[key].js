@@ -3,7 +3,7 @@ import { supabase } from "../../lib/supabase.js";
 export default async function handler(req, res) {
     const { key } = req.query;
 
-    const { data, error } = await supaRedirect
+    const { data, error } = await supabase
     .from('links')
     .select('target')
     .eq('key', key)
