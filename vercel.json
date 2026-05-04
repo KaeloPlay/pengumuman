@@ -1,8 +1,15 @@
 {
-  "rewrites": [
-    {
-      "source": "/redirect/:key",
-      "destination": "/api/redirect/:key"
-    }
-  ]
+    "redirects": [
+        {
+            "source": "/",
+            "destination": "https://pengumumanviic2.vercel.app",
+            "permanent": false
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/redirect/:key",
+            "destination": "/api/redirect/:key"
+        }
+    ]
 }
